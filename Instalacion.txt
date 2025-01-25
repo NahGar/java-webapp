@@ -1,0 +1,56 @@
+1) Descargue open jdk desde https://jdk.java.net/
+
+2) Cree carpeta D:\Java
+
+3) Ahi descomprimí el zip
+
+4) Configurar la variables de entorno, agregando a la variable PATH la ruta
+   del bin, en mi caso D:\Java\jdk-22.0.2\bin
+
+5) Además agregar la variable JAVA_HOME con la ruta sin el \bin, en mi caso
+   D:\Java\jdk-22.0.2
+
+Instalar tomcat
+
+1) Descomprimir zip
+
+2) crear usuario en la carpeta config\tomcat-users.xml <user username="admin" password="admin" roles="admin,manager-gui,manager-script"/>
+
+3) en pom:
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>9.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <username>admin</username>
+                    <password>admin</password>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+4) en menu Run. Edit configuration. Agregar: Name: tomcat7, command: tomcat7:redeploy, Apply
