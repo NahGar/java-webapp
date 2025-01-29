@@ -7,9 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @WebServlet("/registro")
 public class FormServlet extends HttpServlet {
@@ -31,27 +29,27 @@ public class FormServlet extends HttpServlet {
                   req.getParameter("habilitar").equals("on");
         String secreto = req.getParameter("secreto");
         
-        List<String> errores = new ArrayList<>();
+        Map<String,String> errores = new HashMap<>();
         if(username == null || username.isBlank()) {
-            errores.add("Falta indicar usuario");
+            errores.put("username","Falta indicar usuario");
         }
         if(password == null || password.isBlank()) {
-            errores.add("Falta indicar contraseña");
+            errores.put("password","Falta indicar contraseña");
         }
         if(email == null || !email.contains("@") || !email.contains(".")) {
-            errores.add("Falta indicar email o no es válido");
+            errores.put("email","Falta indicar email o no es válido");
         }
         if(pais == null || pais.isBlank()) {
-            errores.add("Falta indicar país");
+            errores.put("pais","Falta indicar país");
         }
         if(lenguajes == null || lenguajes.length == 0) {
-            errores.add("Falta indicar lenguajes");
+            errores.put("lenguajes","Falta indicar lenguajes");
         }
         if(roles == null || roles.length == 0) {
-            errores.add("Falta indicar roles");
+            errores.put("roles","Falta indicar roles");
         }
         if(idioma == null) {
-            errores.add("Falta indicar idioma");
+            errores.put("idioma","Falta indicar idioma");
         }
         
         if(errores.isEmpty()) {
