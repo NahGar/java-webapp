@@ -1,4 +1,4 @@
-package org.ngarcia.webapp.tests.servlet;
+package org.ngarcia.webapp.tareas.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
