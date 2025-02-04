@@ -2,14 +2,12 @@ package org.ngarcia.webapp.headers.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Optional;
+import org.ngarcia.webapp.headers.services.LoginService;
 import org.ngarcia.webapp.headers.services.LoginServiceImpl;
 
 @WebServlet({"/login","/login.html"})
@@ -29,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         //        .map( c -> c.getValue())
         //        .findAny();
         
-        LoginServiceImpl service = new LoginServiceImpl();
+        LoginService service = new LoginServiceImpl();
         Optional<String> cookieOptional = service.getUsername(req);
         
         if(cookieOptional.isPresent()) {
@@ -43,6 +41,8 @@ public class LoginServlet extends HttpServlet {
                 out.println("  </head>");
                 out.println("  <body>");
                 out.println("    <h1>Hola " + cookieOptional.get() + "</h1>");
+                out.println("    <p><a href='" + req.getContextPath() + "/index.html'>Volver</p>");
+                out.println("    <p><a href='" + req.getContextPath() + "/logout'>Logout</p>");
                 out.println("  </body>");
                 out.println("</html>");
             }
@@ -63,20 +63,8 @@ public class LoginServlet extends HttpServlet {
             Cookie usernameCookie = new Cookie("username", username);
             resp.addCookie(usernameCookie);
             
-            resp.setContentType("text/html;charset=UTF-8");
-            try (PrintWriter out = resp.getWriter()) {
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("  <head>");
-                out.println("    <meta charset=\"UTF-8\">");
-                out.println("    <title>Login correcto</title>");
-                out.println("  </head>");
-                out.println("  <body>");
-                out.println("    <h1>Login correcto</h1>");
-                out.println("    <h3>Hola " + username + "</h3>");
-                out.println("  </body>");
-                out.println("</html>");
-            }
+            //se ejecuta el doGet de esta clase
+            resp.sendRedirect(req.getContextPath() + "/login.html");
         }
         else {
             resp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"No estás autorizado man");

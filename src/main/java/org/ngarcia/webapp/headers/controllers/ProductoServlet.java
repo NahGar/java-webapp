@@ -8,9 +8,7 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 import org.ngarcia.webapp.headers.models.Producto;
-import org.ngarcia.webapp.headers.services.LoginServiceImpl;
-import org.ngarcia.webapp.headers.services.ProductoService;
-import org.ngarcia.webapp.headers.services.ProductoServiceImpl;
+import org.ngarcia.webapp.headers.services.*;
 
 @WebServlet({"/productos1.html"})
 public class ProductoServlet extends HttpServlet{
@@ -23,7 +21,7 @@ public class ProductoServlet extends HttpServlet{
 
         resp.setContentType("text/html;charset=UTF-8");
         
-        LoginServiceImpl serviceLogin = new LoginServiceImpl();
+        LoginService serviceLogin = new LoginServiceImpl();
         Optional<String> cookieOptional = serviceLogin.getUsername(req);
         
         try (PrintWriter out = resp.getWriter()) {
@@ -36,6 +34,9 @@ public class ProductoServlet extends HttpServlet{
             out.println("  </head>");
             out.println("  <body>");
             out.println("    <h1>Listado de productos</h1>");
+            if(cookieOptional.isPresent()) {
+                out.println("    <h2>Usuario: " + cookieOptional.get() + "</h2>");
+            }
             out.println("    <table>");
             out.println("      <tr>");
             out.println("        <th>id</th>");
