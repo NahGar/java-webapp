@@ -20,9 +20,14 @@ public class ProductoServlet extends HttpServlet{
         List<Producto> productos = serviceProd.listar();
 
         resp.setContentType("text/html;charset=UTF-8");
-        
-        LoginService serviceLogin = new LoginServiceImpl();
-        Optional<String> cookieOptional = serviceLogin.getUsername(req);
+
+        //Con cookie
+        //LoginService serviceLogin = new LoginServiceImpl();
+        //Optional<String> cookieOptional = serviceLogin.getUsername(req);
+
+        //Con sesion
+        LoginService serviceLogin = new LoginServiceSessionImpl();
+        Optional<String> usernameOptional = serviceLogin.getUsername(req);
         
         try (PrintWriter out = resp.getWriter()) {
 
@@ -34,15 +39,15 @@ public class ProductoServlet extends HttpServlet{
             out.println("  </head>");
             out.println("  <body>");
             out.println("    <h1>Listado de productos</h1>");
-            if(cookieOptional.isPresent()) {
-                out.println("    <h2>Usuario: " + cookieOptional.get() + "</h2>");
+            if(usernameOptional.isPresent()) {
+                out.println("    <h2>Usuario: " + usernameOptional.get() + "</h2>");
             }
             out.println("    <table>");
             out.println("      <tr>");
             out.println("        <th>id</th>");
             out.println("        <th>nombre</th>");
             out.println("        <th>tipo</th>");
-            if(cookieOptional.isPresent()) {
+            if(usernameOptional.isPresent()) {
                 out.println("        <th>precio</th>");
             }
             out.println("      </tr>");
@@ -51,7 +56,7 @@ public class ProductoServlet extends HttpServlet{
                 out.println("        <td>" + p.getId() + "</td>");
                 out.println("        <td>" + p.getNombre() + "</td>");
                 out.println("        <td>" + p.getTipo() + "</td>");
-                if(cookieOptional.isPresent()) {
+                if(usernameOptional.isPresent()) {
                     out.println("        <td>" + p.getPrecio() + "</td>");
                 }
                 out.println("      </tr>");

@@ -32,4 +32,10 @@ public class ProductoServiceImpl implements ProductoService {
                             false : p.getNombre().contains(name);
                 }).toList();
     }
+
+    @Override
+    public Optional<Producto> findById(Long Id) {
+        return  listar().stream()
+                .filter( p -> p.getId().equals(Id)).findFirst();
+    }
 }

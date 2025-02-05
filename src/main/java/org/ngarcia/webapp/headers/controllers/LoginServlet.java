@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Optional;
 import org.ngarcia.webapp.headers.services.LoginService;
 import org.ngarcia.webapp.headers.services.LoginServiceImpl;
+import org.ngarcia.webapp.headers.services.LoginServiceSessionImpl;
 
 @WebServlet({"/login","/login.html"})
 public class LoginServlet extends HttpServlet {
@@ -26,21 +27,26 @@ public class LoginServlet extends HttpServlet {
         //        .filter( c -> c.getName().equals("username"))
         //        .map( c -> c.getValue())
         //        .findAny();
+
+        //Con cookie
+        //LoginService service = new LoginServiceImpl();
+        //Optional<String> usernameOptional = service.getUsername(req);
+
+        //Con sesion
+        LoginService service = new LoginServiceSessionImpl();
+        Optional<String> usernameOptional = service.getUsername(req);
         
-        LoginService service = new LoginServiceImpl();
-        Optional<String> cookieOptional = service.getUsername(req);
-        
-        if(cookieOptional.isPresent()) {
+        if(usernameOptional.isPresent()) {
             resp.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = resp.getWriter()) {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("  <head>");
                 out.println("    <meta charset=\"UTF-8\">");
-                out.println("    <title>Hola " + cookieOptional.get() + "</title>");
+                out.println("    <title>Hola " + usernameOptional.get() + "</title>");
                 out.println("  </head>");
                 out.println("  <body>");
-                out.println("    <h1>Hola " + cookieOptional.get() + "</h1>");
+                out.println("    <h1>Hola " + usernameOptional.get() + "</h1>");
                 out.println("    <p><a href='" + req.getContextPath() + "/index.html'>Volver</p>");
                 out.println("    <p><a href='" + req.getContextPath() + "/logout'>Logout</p>");
                 out.println("  </body>");
@@ -59,9 +65,13 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         
         if(USERNAME.equals(username) && PASSWORD.equals(password)) {
-            
-            Cookie usernameCookie = new Cookie("username", username);
-            resp.addCookie(usernameCookie);
+
+            //Con cookies
+            //Cookie usernameCookie = new Cookie("username", username);
+            //resp.addCookie(usernameCookie);
+
+            //Con sesión
+            req.getSession().setAttribute("username",username);
             
             //se ejecuta el doGet de esta clase
             resp.sendRedirect(req.getContextPath() + "/login.html");

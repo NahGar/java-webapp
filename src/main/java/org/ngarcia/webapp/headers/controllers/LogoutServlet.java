@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Optional;
 import org.ngarcia.webapp.headers.services.LoginService;
 import org.ngarcia.webapp.headers.services.LoginServiceImpl;
+import org.ngarcia.webapp.headers.services.LoginServiceSessionImpl;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
@@ -18,12 +19,24 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
 
-        LoginService auth = new LoginServiceImpl();
+        //Con cookie
+        //LoginService auth = new LoginServiceImpl();
+        //Optional<String> username = auth.getUsername(req);
+
+        //Con sesion
+        LoginService auth = new LoginServiceSessionImpl();
         Optional<String> username = auth.getUsername(req);
+
         if( username.isPresent() ) {
-            Cookie usernameCookie = new Cookie("username","");
-            usernameCookie.setMaxAge(0);
-            resp.addCookie(usernameCookie);
+            //Borra cookie
+            //Cookie usernameCookie = new Cookie("username","");
+            //usernameCookie.setMaxAge(0);
+            //resp.addCookie(usernameCookie);
+
+            //elimina atributo
+            //req.getSession().removeAttribute("username");
+            //elimina sesion
+            req.getSession().invalidate();
             
             resp.sendRedirect(req.getContextPath() + "/login");
         }

@@ -1,4 +1,4 @@
-package org.ngarcia.webapp.servlet;
+package org.ngarcia.webapp.headers.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

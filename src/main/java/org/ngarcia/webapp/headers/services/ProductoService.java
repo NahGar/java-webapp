@@ -8,4 +8,5 @@ public interface ProductoService {
     List<Producto> listar();
     Optional<Producto> findOne(String name);
     List<Producto> findAll(String name);
+    Optional<Producto> findById(Long Id);
 }
