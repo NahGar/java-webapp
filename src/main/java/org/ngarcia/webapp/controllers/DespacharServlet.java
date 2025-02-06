@@ -1,4 +1,4 @@
-package org.ngarcia.webapp.headers.controllers;
+package org.ngarcia.webapp.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -8,15 +8,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/redirigir")
-public class RedirigirServlet extends HttpServlet {
+@WebServlet("/despachar")
+public class DespacharServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //resp.setHeader("Location",req.getContextPath() + "/productos.html");
-        //resp.setStatus(HttpServletResponse.SC_FOUND);
-        //Equivalente
-        resp.sendRedirect(req.getContextPath() + "/productos.html");
+        getServletContext().getRequestDispatcher("/cabeceras-request").forward(req,resp);
     }
 }

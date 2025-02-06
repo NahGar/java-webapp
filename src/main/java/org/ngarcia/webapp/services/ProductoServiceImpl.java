@@ -1,9 +1,9 @@
-package org.ngarcia.webapp.headers.services;
+package org.ngarcia.webapp.services;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import org.ngarcia.webapp.headers.models.Producto;
+import org.ngarcia.webapp.models.Producto;
 
 public class ProductoServiceImpl implements ProductoService {
 

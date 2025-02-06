@@ -1,8 +1,8 @@
-package org.ngarcia.webapp.headers.services;
+package org.ngarcia.webapp.services;
 
 import java.util.List;
 import java.util.Optional;
-import org.ngarcia.webapp.headers.models.Producto;
+import org.ngarcia.webapp.models.Producto;
 
 public interface ProductoService {
     List<Producto> listar();

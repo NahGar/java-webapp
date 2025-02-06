@@ -1,4 +1,4 @@
-package org.ngarcia.webapp.headers.controllers;
+package org.ngarcia.webapp.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,9 +6,9 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import org.ngarcia.webapp.headers.models.Producto;
-import org.ngarcia.webapp.headers.services.ProductoService;
-import org.ngarcia.webapp.headers.services.ProductoServiceImpl;
+import org.ngarcia.webapp.models.Producto;
+import org.ngarcia.webapp.services.ProductoService;
+import org.ngarcia.webapp.services.ProductoServiceImpl;
 
 @WebServlet({"/productos.xls","/productos.html"})
 public class ProductoXlsServlet extends HttpServlet{

@@ -1,4 +1,4 @@
-package org.ngarcia.webapp.headers.models;
+package org.ngarcia.webapp.models;
 
 import java.util.Objects;
 

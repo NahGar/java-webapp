@@ -1,4 +1,4 @@
-package org.ngarcia.webapp.headers.controllers;
+package org.ngarcia.webapp.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Optional;
-import org.ngarcia.webapp.headers.services.LoginService;
-import org.ngarcia.webapp.headers.services.LoginServiceImpl;
-import org.ngarcia.webapp.headers.services.LoginServiceSessionImpl;
+import org.ngarcia.webapp.services.LoginService;
+import org.ngarcia.webapp.services.LoginServiceImpl;
+import org.ngarcia.webapp.services.LoginServiceSessionImpl;
 
 @WebServlet({"/login","/login.html"})
 public class LoginServlet extends HttpServlet {

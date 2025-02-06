@@ -1,5 +1,9 @@
-package org.ngarcia.webapp.headers.controllers;
+package org.ngarcia.webapp.controllers;
 
+import org.ngarcia.webapp.services.ProductoService;
+import org.ngarcia.webapp.services.ProductoServiceImpl;
+import org.ngarcia.webapp.services.LoginService;
+import org.ngarcia.webapp.services.LoginServiceSessionImpl;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -7,8 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
-import org.ngarcia.webapp.headers.models.Producto;
-import org.ngarcia.webapp.headers.services.*;
+import org.ngarcia.webapp.models.Producto;
 
 @WebServlet({"/productos1.html"})
 public class ProductoServlet extends HttpServlet{
@@ -49,6 +52,7 @@ public class ProductoServlet extends HttpServlet{
             out.println("        <th>tipo</th>");
             if(usernameOptional.isPresent()) {
                 out.println("        <th>precio</th>");
+                out.println("        <th>agregar</th>");
             }
             out.println("      </tr>");
             productos.forEach(p -> {
@@ -58,6 +62,8 @@ public class ProductoServlet extends HttpServlet{
                 out.println("        <td>" + p.getTipo() + "</td>");
                 if(usernameOptional.isPresent()) {
                     out.println("        <td>" + p.getPrecio() + "</td>");
+                    out.println("        <td><a href=\""+ req.getContextPath()+
+                            "/agregar-carro?id="+p.getId()+"\">agregar al carro</a></td>");
                 }
                 out.println("      </tr>");
             });

@@ -1,13 +1,11 @@
-package org.ngarcia.webapp.headers.controllers;
+package org.ngarcia.webapp.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import org.ngarcia.webapp.headers.models.Producto;
-import org.ngarcia.webapp.headers.services.ProductoService;
-import org.ngarcia.webapp.headers.services.ProductoServiceImpl;
+import org.ngarcia.webapp.models.Producto;
+import org.ngarcia.webapp.services.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,7 +27,8 @@ public class ProductoJsonServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
+            throws ServletException, IOException {
 
         ServletInputStream jsonStream = req.getInputStream();
         ObjectMapper mapper = new ObjectMapper();
