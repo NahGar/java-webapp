@@ -15,42 +15,42 @@ public class ActualizarCarroServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
 
+        //if(req.getSession().getAttribute("carro") != null) {
         Carro carro = (Carro) req.getSession().getAttribute("carro");
         ProductoService service = new ProductoServiceImpl();
-                
+
         String[] idProductos = req.getParameterValues("id_producto");
         String[] cantidades = req.getParameterValues("cant_1");
         String[] deleteProductos = req.getParameterValues("delete_producto");
-        
+
         int posicion = 0;
-        for(String idProducto : idProductos) {
-        
+        for (String idProducto : idProductos) {
+
             Long id = Long.parseLong(idProducto);
-            
+
             boolean borraProducto = false;
             //verifica si la linea se elimina
-            if(deleteProductos != null) {
-                for(String idDelete : deleteProductos) {
-                    if(idProducto.equals(idDelete)) {
+            if (deleteProductos != null) {
+                for (String idDelete : deleteProductos) {
+                    if (idProducto.equals(idDelete)) {
                         borraProducto = true;
                         break;
                     }
                 }
             }
-            
-            if(borraProducto) {
+
+            if (borraProducto) {
                 carro.deleteItem(id);
-            }
-            else {
+            } else {
                 Optional<Producto> producto = service.findById(id);
-                if(producto.isPresent()) {
-                    ItemCarro item = new ItemCarro( Integer.parseInt(cantidades[posicion]), producto.get());
+                if (producto.isPresent()) {
+                    ItemCarro item = new ItemCarro(Integer.parseInt(cantidades[posicion]), producto.get());
                     carro.updateItem(item);
                 }
             }
-            posicion ++;
+            posicion++;
         }
-        
+        //}
         resp.sendRedirect(req.getContextPath()+"/ver-carro");
     }
 }

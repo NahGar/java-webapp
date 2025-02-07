@@ -20,6 +20,8 @@ public class AgregarCarroServlet extends HttpServlet {
         Optional<Producto> producto = service.findById(id);
         if(producto.isPresent()) {
             ItemCarro item = new ItemCarro(1, producto.get());
+            //Se crea carro en AplicacionListener
+            /*
             Carro carro;
             if(req.getSession().getAttribute("carro") == null) {
                 carro = new Carro();
@@ -27,6 +29,8 @@ public class AgregarCarroServlet extends HttpServlet {
             else {
                 carro = (Carro) req.getSession().getAttribute("carro");
             }
+            */
+            Carro carro = (Carro) req.getSession().getAttribute("carro");
             carro.addItem(item);
             req.getSession().setAttribute("carro", carro);
         }

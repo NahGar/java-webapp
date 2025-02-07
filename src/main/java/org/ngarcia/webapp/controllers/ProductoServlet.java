@@ -22,8 +22,6 @@ public class ProductoServlet extends HttpServlet{
         ProductoService serviceProd = new ProductoServiceImpl();
         List<Producto> productos = serviceProd.listar();
 
-        resp.setContentType("text/html;charset=UTF-8");
-
         //Con cookie
         //LoginService serviceLogin = new LoginServiceImpl();
         //Optional<String> cookieOptional = serviceLogin.getUsername(req);
@@ -31,7 +29,12 @@ public class ProductoServlet extends HttpServlet{
         //Con sesion
         LoginService serviceLogin = new LoginServiceSessionImpl();
         Optional<String> usernameOptional = serviceLogin.getUsername(req);
-        
+
+        String mensajeRequest = (String) req.getAttribute("mensaje");
+        String mensajeApp = (String) req.getServletContext().getAttribute("mensaje");
+
+        resp.setContentType("text/html;charset=UTF-8");
+
         try (PrintWriter out = resp.getWriter()) {
 
             out.println("<!DOCTYPE html>");
@@ -68,6 +71,8 @@ public class ProductoServlet extends HttpServlet{
                 out.println("      </tr>");
             });
             out.println("    </table>");
+            out.println("    <p>Request:" + mensajeRequest + "</p>");
+            out.println("    <p>App:" + mensajeApp + "</p>");
             out.println("  </body>");
             out.println("</html>");
         }
