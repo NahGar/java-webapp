@@ -19,7 +19,7 @@
         <% if(carro == null || carro.getItems().isEmpty()) { %>
             <p>No hay productos en el carro de compras</p>
         <% } else { %>
-        <form name="formCarro" action="/webapp/actualizar-carro" method="post">
+        <form name="formCarro" action="/webapp/carro/actualizar" method="post">
             <table>
                 <tr>
                     <th>id</th>

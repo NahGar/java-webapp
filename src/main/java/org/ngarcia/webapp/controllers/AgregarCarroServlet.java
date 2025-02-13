@@ -4,11 +4,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.Optional;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
-@WebServlet("/agregar-carro")
+@WebServlet("/carro/agregar")
 public class AgregarCarroServlet extends HttpServlet {
 
     @Override
@@ -16,7 +17,9 @@ public class AgregarCarroServlet extends HttpServlet {
             throws ServletException, IOException {
         
         Long id = Long.parseLong(req.getParameter("id"));
-        ProductoService service = new ProductoServiceImpl();
+        //ProductoService service = new ProductoServiceImpl();
+        Connection conn = (Connection)  req.getAttribute("conn");
+        ProductoService service = new ProductoServiceJdbcImpl(conn);
         Optional<Producto> producto = service.findById(id);
         if(producto.isPresent()) {
             ItemCarro item = new ItemCarro(1, producto.get());
@@ -34,7 +37,7 @@ public class AgregarCarroServlet extends HttpServlet {
             carro.addItem(item);
             req.getSession().setAttribute("carro", carro);
         }
-        resp.sendRedirect(req.getContextPath()+"/ver-carro");
+        resp.sendRedirect(req.getContextPath()+"/carro/ver");
     }
     
 }

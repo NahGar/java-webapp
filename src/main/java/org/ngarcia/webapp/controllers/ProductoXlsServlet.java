@@ -51,7 +51,7 @@ public class ProductoXlsServlet extends HttpServlet{
                 out.println("      <tr>");
                 out.println("        <td>" + p.getId() + "</td>");
                 out.println("        <td>" + p.getNombre() + "</td>");
-                out.println("        <td>" + p.getTipo() + "</td>");
+                out.println("        <td>" + p.getCategoria().getNombre() + "</td>");
                 out.println("        <td>" + p.getPrecio() + "</td>");
                 out.println("      </tr>");
             });

@@ -1,14 +1,12 @@
 package org.ngarcia.webapp.controllers;
 
-import org.ngarcia.webapp.services.ProductoService;
-import org.ngarcia.webapp.services.ProductoServiceImpl;
-import org.ngarcia.webapp.services.LoginService;
-import org.ngarcia.webapp.services.LoginServiceSessionImpl;
+import org.ngarcia.webapp.services.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 import org.ngarcia.webapp.models.Producto;
@@ -18,8 +16,10 @@ public class ProductoServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        
-        ProductoService serviceProd = new ProductoServiceImpl();
+
+        //ProductoService serviceProd = new ProductoServiceImpl();
+        Connection conn = (Connection)  req.getAttribute("conn");
+        ProductoService serviceProd = new ProductoServiceJdbcImpl(conn);
         List<Producto> productos = serviceProd.listar();
 
         //Con cookie
@@ -30,9 +30,10 @@ public class ProductoServlet extends HttpServlet{
         LoginService serviceLogin = new LoginServiceSessionImpl();
         Optional<String> usernameOptional = serviceLogin.getUsername(req);
 
-        String mensajeRequest = (String) req.getAttribute("mensaje");
-        String mensajeApp = (String) req.getServletContext().getAttribute("mensaje");
+        //String mensajeRequest = (String) req.getAttribute("mensaje");
+        //String mensajeApp = (String) getServletContext().getAttribute("mensaje");
 
+        /*
         resp.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = resp.getWriter()) {
@@ -66,7 +67,7 @@ public class ProductoServlet extends HttpServlet{
                 if(usernameOptional.isPresent()) {
                     out.println("        <td>" + p.getPrecio() + "</td>");
                     out.println("        <td><a href=\""+ req.getContextPath()+
-                            "/agregar-carro?id="+p.getId()+"\">agregar al carro</a></td>");
+                            "/carro/agregar?id="+p.getId()+"\">agregar al carro</a></td>");
                 }
                 out.println("      </tr>");
             });
@@ -76,5 +77,11 @@ public class ProductoServlet extends HttpServlet{
             out.println("  </body>");
             out.println("</html>");
         }
+        */
+
+        req.setAttribute("productos",productos);
+        req.setAttribute("username",usernameOptional);
+
+        getServletContext().getRequestDispatcher("/listar-productos.jsp").forward(req,resp);
     }
 }

@@ -9,10 +9,10 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public List<Producto> listar() {
-        return Arrays.asList(new Producto(1L,"notebook","computacion",175000),
-                new Producto(2L,"mesa escritorio","oficina",100000),
-                new Producto(3L,"mesa de cocina","cocina",90000),
-                new Producto(4L,"teclado","computacion",50000));
+        return Arrays.asList(new Producto(1L,"notebook",175000),
+                new Producto(2L,"mesa escritorio",100000),
+                new Producto(3L,"mesa de cocina",90000),
+                new Producto(4L,"teclado",50000));
     }
 
     @Override
@@ -34,8 +34,8 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Optional<Producto> findById(Long Id) {
+    public Optional<Producto> findById(Long id) {
         return  listar().stream()
-                .filter( p -> p.getId().equals(Id)).findFirst();
+                .filter( p -> p.getId().equals(id)).findFirst();
     }
 }

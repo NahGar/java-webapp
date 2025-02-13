@@ -49,7 +49,7 @@ public class ProductoJsonServlet extends HttpServlet {
             out.println("    <ul>");
             out.println("      <li>Id: " + producto.getId() + "</li>");
             out.println("      <li>Nombre: " + producto.getNombre() + "</li>");
-            out.println("      <li>Tipo: " + producto.getTipo() + "</li>");
+            out.println("      <li>Tipo: " + producto.getCategoria().getNombre() + "</li>");
             out.println("      <li>Precio: " + producto.getPrecio() + "</li>");
             out.println("    </ul>");
             out.println("  </body>");

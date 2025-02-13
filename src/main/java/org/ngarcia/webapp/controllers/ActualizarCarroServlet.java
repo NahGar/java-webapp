@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
-@WebServlet("/actualizar-carro")
+@WebServlet("/carro/actualizar")
 public class ActualizarCarroServlet extends HttpServlet {
 
     @Override
@@ -51,6 +51,6 @@ public class ActualizarCarroServlet extends HttpServlet {
             posicion++;
         }
         //}
-        resp.sendRedirect(req.getContextPath()+"/ver-carro");
+        resp.sendRedirect(req.getContextPath()+"/carro/ver");
     }
 }

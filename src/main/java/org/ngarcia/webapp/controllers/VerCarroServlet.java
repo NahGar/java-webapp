@@ -5,7 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 
-@WebServlet("/ver-carro")
+@WebServlet("/carro/ver")
 public class VerCarroServlet extends HttpServlet {
 
     @Override
