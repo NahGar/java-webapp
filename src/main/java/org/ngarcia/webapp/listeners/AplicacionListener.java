@@ -5,6 +5,9 @@ import jakarta.servlet.annotation.WebListener;
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 import org.ngarcia.webapp.models.Carro;
+import org.ngarcia.webapp.utils.LogUtil;
+
+import java.io.File;
 
 @WebListener
 public class AplicacionListener implements ServletContextListener,
@@ -17,6 +20,13 @@ public class AplicacionListener implements ServletContextListener,
         sce.getServletContext().log("Inicializando la aplicación");
         servletContext = sce.getServletContext();
         servletContext.setAttribute("mensaje","algun valor global de la app");
+
+        // Obtiene la ruta absoluta de la aplicación
+        String absolutePath = sce.getServletContext().getRealPath("/");
+        // Define la ruta de la carpeta logs
+        String logsPath = absolutePath + File.separator + "logs";
+        // Inicializa la ruta en la clase LogUtil
+        LogUtil.setLogsFolder(logsPath);
     }
 
     @Override

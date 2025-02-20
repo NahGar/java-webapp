@@ -10,4 +10,5 @@ public interface Repository<T> {
    List<T> porNombre(String nombre) throws SQLException;
    void guardar(T t) throws SQLException;
    void eliminar(Long id) throws SQLException;
+   T porSku(String sku) throws SQLException;
 }

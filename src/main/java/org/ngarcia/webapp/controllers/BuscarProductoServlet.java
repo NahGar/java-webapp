@@ -19,9 +19,9 @@ public class BuscarProductoServlet extends HttpServlet {
         
         String nombreFiltro = req.getParameter("producto");
         ProductoService service = new ProductoServiceImpl();
-        List<Producto> productos = service.findAll(nombreFiltro);
+        List<Producto> productos = service.findAllByName(nombreFiltro);
         
-        Optional<Producto> encontrado = service.findOne(nombreFiltro);
+        Optional<Producto> encontrado = service.findOneByName(nombreFiltro);
         if(!encontrado.isPresent()) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND,"No se encontró el producto " + nombreFiltro);
         }

@@ -67,4 +67,16 @@ public class Producto {
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", categoria=" + categoria +
+                ", precio=" + precio +
+                ", sku='" + sku + '\'' +
+                ", fechaRegistro=" + fechaRegistro +
+                '}';
+    }
 }

@@ -3,6 +3,8 @@ package org.ngarcia.webapp.services;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import org.ngarcia.webapp.models.Categoria;
 import org.ngarcia.webapp.models.Producto;
 
 public class ProductoServiceImpl implements ProductoService {
@@ -16,7 +18,7 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public Optional<Producto> findOne(String name) {
+    public Optional<Producto> findOneByName(String name) {
         return  listar().stream()
                 .filter( p -> {
                     return name==null || name.isBlank() ? 
@@ -25,7 +27,7 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public List<Producto> findAll(String name) {
+    public List<Producto> findAllByName(String name) {
         return  listar().stream()
                 .filter( p -> {
                     return name==null || name.isBlank() ? 
@@ -38,4 +40,29 @@ public class ProductoServiceImpl implements ProductoService {
         return  listar().stream()
                 .filter( p -> p.getId().equals(id)).findFirst();
     }
+
+   @Override
+   public void guardar(Producto producto) {
+
+   }
+
+   @Override
+   public void eliminar(Long id) {
+
+   }
+
+   @Override
+   public List<Categoria> listarCategoria() {
+      return List.of();
+   }
+
+   @Override
+   public Optional<Categoria> findByIdCategoria(Long id) {
+      return Optional.empty();
+   }
+
+   @Override
+   public Optional<Producto> findBySku(String sku) {
+      return Optional.empty();
+   }
 }

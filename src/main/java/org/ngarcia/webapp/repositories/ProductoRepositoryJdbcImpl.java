@@ -1,7 +1,6 @@
 package org.ngarcia.webapp.repositories;
 
-import org.ngarcia.webapp.models.Categoria;
-import org.ngarcia.webapp.models.Producto;
+import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class ProductoRepositoryJdbcImpl implements Repository<Producto> {
    public List listar() throws SQLException {
       List<Producto> productos = new ArrayList<>();
       String sql = "SELECT p.*, c.nombre as categoria from productos as p " +
-              "inner join categorias as c ON (p.categoria_id=c.id)";
+              "inner join categorias as c ON (p.categoria_id=c.id) ORDER BY p.id ASC";
 
       try(Statement stmt = conn.createStatement() ) {
          ResultSet rs = stmt.executeQuery(sql);
@@ -54,17 +53,64 @@ public class ProductoRepositoryJdbcImpl implements Repository<Producto> {
 
    @Override
    public void guardar(Producto p) throws SQLException {
+      String sql;
+      boolean isUpdate = false;
+      if(p.getId() != null && p.getId() > 0) {
+         isUpdate = true;
+         sql = "UPDATE productos set nombre=?, precio=?, categoria_id=?, sku=? where id=?";
+      }
+      else {
+         sql = "INSERT INTO productos (nombre,precio,categoria_id,sku,fecha_registro) VALUES (?,?,?,?,?)";
+      }
 
+      try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+         stmt.setString(1,p.getNombre());
+         stmt.setInt(2,p.getPrecio());
+         stmt.setLong(3,p.getCategoria().getId());
+         stmt.setString(4,p.getSku());
+         if(isUpdate) {
+            stmt.setLong(5,p.getId());
+         }
+         else {
+            stmt.setDate(5,Date.valueOf(p.getFechaRegistro()));
+         }
+         stmt.executeUpdate();
+      }
    }
 
    @Override
    public void eliminar(Long id) throws SQLException {
 
+      String sql = "DELETE FROM productos WHERE id=?";
+      try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+         stmt.setLong(1,id);
+         stmt.executeUpdate();
+      }
    }
 
    @Override
    public List<Producto> porNombre(String nombre) throws SQLException {
       return List.of();
+   }
+
+   @Override
+   public Producto porSku(String sku) throws SQLException {
+      Producto producto = null;
+      String sql = "SELECT p.*, c.nombre as categoria from productos as p " +
+              "inner join categorias as c ON (p.categoria_id=c.id) " +
+              "WHERE p.sku=?";
+
+      try(PreparedStatement stmt = conn.prepareStatement(sql) ) {
+         stmt.setString(1,sku);
+
+         try(ResultSet rs = stmt.executeQuery();) {
+
+            if (rs.next()) {
+               producto = getProducto(rs);
+            }
+         }
+      }
+      return producto;
    }
 
    private static Producto getProducto(ResultSet rs) throws SQLException {
