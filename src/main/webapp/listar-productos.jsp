@@ -1,4 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" import="java.util.*, org.ngarcia.webapp.models.*" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page import="java.util.*" %>
+<%@page import="org.ngarcia.webapp.models.*" %>
+<%@page import="java.time.format.*" %>
 <%
 List<Producto> productos = (List<Producto>) request.getAttribute("productos");
 Optional<String> username = (Optional<String>) request.getAttribute("username");
@@ -25,8 +28,11 @@ String mensajeApp = (String) getServletContext().getAttribute("mensaje");
                 <th>tipo</th>
                 <% if(username.isPresent()) { %>
                 <th>precio</th>
-                <th></th>
-                <th></th>
+                <th>sku</th>
+                <th>fecha registro</th>
+                <th>agregar</th>
+                <th>editar</th>
+                <th>eliminar</th>
                 <% } %>
             </tr>
 
@@ -37,9 +43,17 @@ String mensajeApp = (String) getServletContext().getAttribute("mensaje");
                 <td><%=p.getNombre()%></td>
                 <td><%=p.getCategoria().getNombre()%></td>
                 <% if(username.isPresent()) { %>
-                <td><%=p.getPrecio()%></td>
-                <td><a href="<%=request.getContextPath()%>/carro/agregar?id=<%=p.getId()%>">agregar al carro<a/></td>
-                <td><a href="<%=request.getContextPath()%>/productos/form?id=<%=p.getId()%>">editar<a/></td>
+                    <td><%=p.getPrecio()%></td>
+                    <td><%=p.getSku()%></td>
+                    <td><%=p.getFechaRegistro()!=null?p.getFechaRegistro().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")):""%></td>
+                    <td><a href="<%=request.getContextPath()%>/carro/agregar?id=<%=p.getId()%>">agregar al carro<a/></td>
+                    <td><a href="<%=request.getContextPath()%>/productos/form?id=<%=p.getId()%>">editar<a/></td>
+                    <td>
+                        <a
+                            onclick="return confirm('¿Está seguro que quiere eliminar?')"
+                            href="<%=request.getContextPath()%>/productos/eliminar?id=<%=p.getId()%>">eliminar
+                        <a/>
+                    </td>
                 <% } %>
             </tr>
             <% } %>

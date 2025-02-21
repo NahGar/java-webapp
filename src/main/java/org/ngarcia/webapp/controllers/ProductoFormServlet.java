@@ -5,15 +5,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
-import org.ngarcia.webapp.utils.LogUtil;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.time.format.*;
+import java.util.*;
 
 @WebServlet("/productos/form")
 public class ProductoFormServlet extends HttpServlet {
@@ -22,12 +19,11 @@ public class ProductoFormServlet extends HttpServlet {
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
       Connection conn = (Connection) req.getAttribute("conn");
       ProductoService service = new ProductoServiceJdbcImpl(conn);
-      req.setAttribute("categorias",service.listarCategoria());
 
       //Al editar producto viene Id en query
-      Long id;
+      long id;
       try {
-         id = Long.valueOf(req.getParameter("id"));
+         id = Long.parseLong(req.getParameter("id"));
       }
       catch (NumberFormatException e) {
          id = 0L;
@@ -43,6 +39,7 @@ public class ProductoFormServlet extends HttpServlet {
          }
       }
 
+      req.setAttribute("categorias",service.listarCategoria());
       req.setAttribute("producto",producto);
 
       getServletContext().getRequestDispatcher("/formulario-producto.jsp").forward(req, resp);
@@ -95,18 +92,32 @@ public class ProductoFormServlet extends HttpServlet {
          errores.put("categoria","Falta indicar categoría");
       }
 
+      LocalDate fecha_registro;
+      try {
+         fecha_registro = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      } catch (DateTimeParseException e) {
+         fecha_registro = null;
+      }
+
+      long id;
+      try {
+         id = Long.parseLong(req.getParameter("id"));
+      } catch (NumberFormatException e) {
+         id = 0L;
+      }
+
+      Producto producto = new Producto();
+      producto.setId(id);
+      producto.setNombre(nombre);
+      producto.setPrecio(precio);
+      producto.setSku(sku);
+      producto.setFechaRegistro(fecha_registro);
+
+      Categoria categoria = new Categoria();
+      categoria.setId(categoriaId);
+      producto.setCategoria(categoria);
+
       if(errores.isEmpty()) {
-         LocalDate fecha_registro = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-
-         Producto producto = new Producto();
-         producto.setNombre(nombre);
-         producto.setPrecio(precio);
-         producto.setSku(sku);
-         producto.setFechaRegistro(fecha_registro);
-
-         Categoria categoria = new Categoria();
-         categoria.setId(categoriaId);
-         producto.setCategoria(categoria);
 
          service.guardar(producto);
 
@@ -114,7 +125,11 @@ public class ProductoFormServlet extends HttpServlet {
       }
       else {
          req.setAttribute("errores", errores);
-         doGet(req, resp);
+         //doGet(req, resp);
+
+         req.setAttribute("producto", producto);
+         req.setAttribute("categorias",service.listarCategoria());
+         getServletContext().getRequestDispatcher("/formulario-producto.jsp").forward(req, resp);
       }
    }
 }

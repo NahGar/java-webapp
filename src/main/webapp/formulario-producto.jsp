@@ -6,7 +6,7 @@
 List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
 Map<String,String> errores = (Map<String,String>) request.getAttribute("errores");
 Producto producto = (Producto) request.getAttribute("producto");
-String fechaRegistro = producto != null ?
+String fechaRegistro = producto.getFechaRegistro() != null ?
     producto.getFechaRegistro().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : "";
 %>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ String fechaRegistro = producto != null ?
                 <label for="nombre">Nombre</label>
                 <div>
                     <input type="text" name="nombre" id="nombre" maxlength="45"
-                    value="<%=producto.getNombre()%>">
+                    value="<%=producto.getNombre() != null ? producto.getNombre() : "" %>">
                 </div>
                 <% if(errores != null && errores.containsKey("nombre")) { %>
                     <div style="color: red;"><%=errores.get("nombre")%></div>
@@ -35,7 +35,7 @@ String fechaRegistro = producto != null ?
                 <label for="precio">Precio</label>
                 <div>
                     <input type="number" name="precio" id="precio"
-                    value="<%=producto.getPrecio()%>">
+                    value="<%=producto.getPrecio() != 0 ? producto.getPrecio() : "" %>">
                 </div>
                 <% if(errores != null && errores.containsKey("precio")) { %>
                     <div style="color: red;"><%=errores.get("precio")%></div>
@@ -45,7 +45,7 @@ String fechaRegistro = producto != null ?
                 <label for="sku">Sku</label>
                 <div>
                     <input type="text" name="sku" id="sku" maxlength="10"
-                    value="<%=producto.getSku()%>">
+                    value="<%=producto.getSku() != null ? producto.getSku() : "" %>">
                 </div>
                 <% if(errores != null && errores.containsKey("sku")) { %>
                     <div style="color: red;"><%=errores.get("sku")%></div>
@@ -77,7 +77,11 @@ String fechaRegistro = producto != null ?
                     <div style="color: red;"><%=errores.get("categoria")%></div>
                 <% } %>
             </div>
-            <div><input type="submit" value="Crear"></div>
+            <div>
+                <input type="submit" value=
+                '<%=producto.getId() != null && producto.getId() > 0 ? "Editar" : "Crear" %>'>
+            </div>
+            <input type="hidden" name="id" value="<%=producto.getId()%>">
         </form>
     </body>
 </html>
