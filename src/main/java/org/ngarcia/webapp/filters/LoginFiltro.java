@@ -2,16 +2,13 @@ package org.ngarcia.webapp.filters;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.ngarcia.webapp.services.LoginService;
-import org.ngarcia.webapp.services.LoginServiceSessionImpl;
+import jakarta.servlet.http.*;
+import org.ngarcia.webapp.services.*;
 
 import java.io.IOException;
-import java.net.http.HttpRequest;
 import java.util.Optional;
 
-@WebFilter("/carro/*")
+@WebFilter({"/carro/*","/productos/form/*","/productos/eliminar/*"})
 public class LoginFiltro implements Filter {
 
     @Override

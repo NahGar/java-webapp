@@ -12,6 +12,7 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
     </head>
     <body>
         <h1>Listado de cursos</h1>
+        <p><a href="<%=request.getContextPath()%>/cursos/form">crear</a></p>
         <table>
             <tr>
                 <th>id</th>
@@ -19,6 +20,8 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
                 <th>descripción</th>
                 <th>instructor</th>
                 <th>duración</th>
+                <th>editar</th>
+                <th>eliminar</th>
             </tr>
 
             <% for(Curso c: cursos) { %>
@@ -28,6 +31,13 @@ List<Curso> cursos = (List<Curso>) request.getAttribute("cursos");
                 <td><%=c.getDescripcion()%></td>
                 <td><%=c.getInstructor()%></td>
                 <td><%=c.getDuracion()%></td>
+                <td><a href="<%=request.getContextPath()%>/cursos/form?id=<%=c.getId()%>">editar<a/></td>
+                <td>
+                    <a
+                        onclick="return confirm('¿Está seguro que quiere eliminar?')"
+                        href="<%=request.getContextPath()%>/cursos/eliminar?id=<%=c.getId()%>">eliminar
+                    <a/>
+                </td>
             </tr>
             <% } %>
         </table>

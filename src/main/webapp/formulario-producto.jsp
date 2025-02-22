@@ -12,13 +12,13 @@ String fechaRegistro = producto.getFechaRegistro() != null ?
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Formulario de productos</title>
+        <title>Formulario de producto</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
-        <h3>Formulario de productos</h3>
+        <h3>Formulario de producto</h3>
 
         <form action="<%=request.getContextPath()%>/productos/form" method="post">
             <div>
