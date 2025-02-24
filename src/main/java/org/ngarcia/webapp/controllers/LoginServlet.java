@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
         Optional<String> usernameOptional = service.getUsername(req);
         
         if(usernameOptional.isPresent()) {
+            /*
             resp.setContentType("text/html;charset=UTF-8");
             try (PrintWriter out = resp.getWriter()) {
                 out.println("<!DOCTYPE html>");
@@ -52,6 +53,8 @@ public class LoginServlet extends HttpServlet {
                 out.println("  </body>");
                 out.println("</html>");
             }
+            */
+            resp.sendRedirect(req.getContextPath() + "/index.html");
         }
         else {
             getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);

@@ -1,6 +1,7 @@
 package org.ngarcia.webapp.models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Producto {
     private Long id;
@@ -68,6 +69,15 @@ public class Producto {
         this.fechaRegistro = fechaRegistro;
     }
 
+    public String getFechaRegistroFormateada() {
+
+        if (this.fechaRegistro != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return this.fechaRegistro.format(formatter);
+        }   
+        return "";
+    }
+    
     @Override
     public String toString() {
         return "Producto{" +
