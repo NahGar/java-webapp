@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.Optional;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
@@ -17,7 +18,8 @@ public class ActualizarCarroServlet extends HttpServlet {
 
         //if(req.getSession().getAttribute("carro") != null) {
         Carro carro = (Carro) req.getSession().getAttribute("carro");
-        ProductoService service = new ProductoServiceImpl();
+        Connection conn = (Connection)  req.getAttribute("conn");
+        ProductoService service = new ProductoServiceJdbcImpl(conn);
 
         String[] idProductos = req.getParameterValues("id_producto");
         String[] cantidades = req.getParameterValues("cant_1");
@@ -50,7 +52,6 @@ public class ActualizarCarroServlet extends HttpServlet {
             }
             posicion++;
         }
-        //}
         resp.sendRedirect(req.getContextPath()+"/carro/ver");
     }
 }
