@@ -9,9 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-    <div class="container mt-5"> <!-- Espaciado superior -->
+    <div class="container">
         <h3 class="text-center">Formulario de producto</h3>
 
         <div class="row justify-content-center"> 

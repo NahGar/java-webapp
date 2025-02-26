@@ -1,67 +1,64 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.util.*"%>
-<%@page import="org.ngarcia.webapp.models.*"%>
-<%
-Map<String,String> errores = (Map<String,String>) request.getAttribute("errores");
-Curso curso = (Curso) request.getAttribute("curso");
-%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Formulario de curso</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="<%=request.getContextPath()%>/css/bootstrap.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
+        <div class="container">
         <h3>Formulario de curso</h3>
 
-        <form action="<%=request.getContextPath()%>/cursos/form" method="post">
+        <form action="${pageContext.request.contextPath}/cursos/form" method="post" class="p-4">
             <div>
                 <label for="nombre">Nombre</label>
                 <div>
                     <input type="text" name="nombre" id="nombre" maxlength="60"
-                    value="<%=curso.getNombre() != null ? curso.getNombre() : "" %>">
+                    value="${curso.nombre}">
                 </div>
-                <% if(errores != null && errores.containsKey("nombre")) { %>
-                    <div style="color: red;"><%=errores.get("nombre")%></div>
-                <% } %>
+                <c:if test='${errores != null && not empty errores.nombre}'>
+                    <div class="text-danger mt-2">${errores.nombre}</div>
+                </c:if>
             </div>
             <div>
                 <label for="descripcion">Descripción</label>
                 <div>
                     <textarea name="descripcion" id="descripcion" maxlength="120"
-                    rows="4" cols="50"><%=curso.getDescripcion() != null ? curso.getDescripcion() : "" %></textarea>
+                    rows="4" cols="50">${curso.descripcion}</textarea>
                 </div>
-                <% if(errores != null && errores.containsKey("descripcion")) { %>
-                    <div style="color: red;"><%=errores.get("descripcion")%></div>
-                <% } %>
+                <c:if test='${errores != null && not empty errores.descripcion}'>
+                    <div class="text-danger mt-2">${errores.descripcion}</div>
+                </c:if>
             </div>
             <div>
                 <label for="instructor">Instructor</label>
                 <div>
                     <input type="text" name="instructor" id="instructor" maxlength="120"
-                    value="<%=curso.getInstructor() != null ? curso.getInstructor() : "" %>">
+                    value="${curso.instructor}">
                 </div>
-                <% if(errores != null && errores.containsKey("instructor")) { %>
-                    <div style="color: red;"><%=errores.get("instructor")%></div>
-                <% } %>
+                <c:if test='${errores != null && not empty errores.instructor}'>
+                    <div class="text-danger mt-2">${errores.instructor}</div>
+                </c:if>
             </div>
             <div>
                 <label for="duracion">Duración</label>
                 <div>
                     <input type="text" name="duracion" id="duracion"
-                    value="<%=curso.getDuracion() != 0 ? curso.getDuracion() : "" %>">
+                    value="${curso.duracion}">
                 </div>
-                <% if(errores != null && errores.containsKey("duracion")) { %>
-                    <div style="color: red;"><%=errores.get("duracion")%></div>
-                <% } %>
+                <c:if test='${errores != null && not empty errores.duracion}'>
+                    <div class="text-danger mt-2">${errores.duracion}</div>
+                </c:if>
             </div>
             <div>
-                <input type="submit" value=
-                '<%=curso.getId() != null && curso.getId() > 0 ? "Editar" : "Crear" %>'>
+                <input type="submit" class="btn btn-primary w-100"
+                   value='${curso.id != null && curso.id > 0 ? "Editar" : "Crear"}'>
             </div>
-            <input type="hidden" name="id" value="<%=curso.getId()%>">
+            <input type="hidden" name="id" value="${curso.id}">
         </form>
+        </div>
     </body>
 </html>

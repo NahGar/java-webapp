@@ -6,22 +6,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
         <title>Listado de productos</title>
+        <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+        <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
-        <h1>Listado de productos</h1>
-        <c:if test="${requestScope.username.isPresent()}">
-            <div>Hola ${requestScope.username.get()}</div>
-        </c:if>
-        <div class="container px-4">
+        <div class="container">
+            <h1>Listado de productos</h1>
+            <c:if test="${requestScope.username.isPresent()}">
+                <div class="alert alert-info">Hola ${requestScope.username.get()}</div>
+            </c:if>
             <c:if test="${requestScope.username.isPresent()}">
                 <p class="text-end">
                     <a href="${pageContext.request.contextPath}/productos/form"
-                       class="btn btn-primary btn-sm rounded-circle">+</a>
+                       class="btn btn-primary rounded-circle"><span class="h3">+</span></a>
                 </p>
             </c:if>
-            <table class="table table-striped table-bordered table-hover">
+            <table class="table table-striped table-hover">
                 <thead class="thead-dark">
                     <tr>
                         <th>ID</th>
@@ -66,8 +67,10 @@
                 </tbody>
             </table>
         </div>
-        <p>${applicationScope.mensaje}</p>
-        <p>${requestScope.mensaje}</p>
+        <div class="alert alert-info">
+            <p>${applicationScope.mensaje}</p>
+            <p>${requestScope.mensaje}</p>
+        </div>
     </body>
 </html>
 
