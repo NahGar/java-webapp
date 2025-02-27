@@ -48,15 +48,16 @@ public class LoginServlet extends HttpServlet {
                 out.println("  </head>");
                 out.println("  <body>");
                 out.println("    <h1>Hola " + usernameOptional.get() + "</h1>");
-                out.println("    <p><a href='" + req.getContextPath() + "/index.html'>Volver</p>");
+                out.println("    <p><a href='" + req.getContextPath() + "/index.jsp'>Volver</p>");
                 out.println("    <p><a href='" + req.getContextPath() + "/logout'>Logout</p>");
                 out.println("  </body>");
                 out.println("</html>");
             }
             */
-            resp.sendRedirect(req.getContextPath() + "/index.html");
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
         }
         else {
+            req.setAttribute("titulo","Login");
             getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         }
     }

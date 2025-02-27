@@ -12,6 +12,7 @@ public class VerCarroServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
+        req.setAttribute("titulo","Ver carro");
         getServletContext().getRequestDispatcher("/carro.jsp").forward(req, resp);
     }
     

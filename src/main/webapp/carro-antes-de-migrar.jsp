@@ -50,6 +50,6 @@
         </form>
         <% } %>
         <p><a href="<%=request.getContextPath()%>/productos1.html">Seguir comprando</a></p>
-        <p><a href="<%=request.getContextPath()%>/index.html">Volver</a></p>
+        <p><a href="<%=request.getContextPath()%>/index.jsp">Volver</a></p>
     </body>
 </html>

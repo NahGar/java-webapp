@@ -24,7 +24,7 @@ public class PerfilUsuarioServlet extends HttpServlet {
             out.println("  </head>");
             out.println("  <body>");
             out.println("    <h1>El nombre es: " + req.getSession().getAttribute("nombre") + "</h1>");
-            out.println("    <p><a href='" + req.getContextPath() + "/index.html'>Volver</p>");
+            out.println("    <p><a href='" + req.getContextPath() + "/index.jsp'>Volver</p>");
             out.println("  </body>");
             out.println("</html>");
         }    

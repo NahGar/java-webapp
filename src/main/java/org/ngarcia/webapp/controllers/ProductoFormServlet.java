@@ -41,6 +41,7 @@ public class ProductoFormServlet extends HttpServlet {
 
       req.setAttribute("categorias",service.listarCategoria());
       req.setAttribute("producto",producto);
+      req.setAttribute("titulo","Formulario de producto");
 
       getServletContext().getRequestDispatcher("/formulario-producto.jsp").forward(req, resp);
    }
@@ -65,6 +66,13 @@ public class ProductoFormServlet extends HttpServlet {
       } catch (NumberFormatException e) {
          categoriaId = 0L;
       }
+      
+      long id;
+      try {
+         id = Long.parseLong(req.getParameter("id"));
+      } catch (NumberFormatException e) {
+         id = 0L;
+      }
 
       Map<String,String> errores = new HashMap<>();
       if(nombre == null || nombre.isBlank()) {
@@ -77,9 +85,11 @@ public class ProductoFormServlet extends HttpServlet {
          errores.put("sku","Sku no debe superar los 10 caracteres");
       }
       else {
-         Optional<Producto> prodPorSku = service.findBySku(sku);
-         if(prodPorSku.isPresent()) {
-            errores.put("sku","El producto "+ prodPorSku.get().getNombre()+" tiene ese sku");
+         if(id == 0) { //si es un producto nuevo
+            Optional<Producto> prodPorSku = service.findBySku(sku);
+            if(prodPorSku.isPresent()) {
+                errores.put("sku","El producto "+ prodPorSku.get().getNombre()+" tiene ese sku");
+            }
          }
       }
       if(fechaStr == null || fechaStr.isBlank()) {
@@ -97,13 +107,6 @@ public class ProductoFormServlet extends HttpServlet {
          fecha_registro = LocalDate.parse(fechaStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
       } catch (DateTimeParseException e) {
          fecha_registro = null;
-      }
-
-      long id;
-      try {
-         id = Long.parseLong(req.getParameter("id"));
-      } catch (NumberFormatException e) {
-         id = 0L;
       }
 
       Producto producto = new Producto();
@@ -129,6 +132,7 @@ public class ProductoFormServlet extends HttpServlet {
 
          req.setAttribute("producto", producto);
          req.setAttribute("categorias",service.listarCategoria());
+         req.setAttribute("titulo","Formulario de producto");
          getServletContext().getRequestDispatcher("/formulario-producto.jsp").forward(req, resp);
       }
    }

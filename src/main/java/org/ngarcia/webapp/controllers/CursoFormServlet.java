@@ -38,6 +38,7 @@ public class CursoFormServlet extends HttpServlet {
       }
 
       req.setAttribute("curso",curso);
+      req.setAttribute("titulo","Formulario de curso");
 
       getServletContext().getRequestDispatcher("/formulario-curso.jsp").forward(req, resp);
    }
@@ -104,6 +105,7 @@ public class CursoFormServlet extends HttpServlet {
          req.setAttribute("errores", errores);
 
          req.setAttribute("curso", curso);
+         req.setAttribute("titulo","Formulario de curso");
 
          getServletContext().getRequestDispatcher("/formulario-curso.jsp").forward(req, resp);
       }

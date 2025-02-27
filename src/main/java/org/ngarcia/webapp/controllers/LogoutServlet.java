@@ -2,15 +2,10 @@ package org.ngarcia.webapp.controllers;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.Optional;
-import org.ngarcia.webapp.services.LoginService;
-import org.ngarcia.webapp.services.LoginServiceImpl;
-import org.ngarcia.webapp.services.LoginServiceSessionImpl;
+import org.ngarcia.webapp.services.*;
 
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
