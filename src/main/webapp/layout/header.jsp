@@ -17,5 +17,6 @@
     <script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+    <jsp:include page="navbar.jsp"/>
     <div class="container">
         <h3>${titulo}</h3>

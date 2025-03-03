@@ -3,7 +3,7 @@
 <ul class="list-group">
     <li class="list-group-item active">Menú de opciones</li>
     <li class="list-group-item"><a href="/webapp/parametros/url-get?saludo=Hola que tal&nombre=Carlitos&codigo=12548">Enviando parámetros</a></li>
-    <li class="list-group-item"><a href="/webapp/formulario-usuarios.jsp">Fomulario de usuarios</a></li>
+    <li class="list-group-item"><a href="/webapp/form-user.jsp">Fomulario de usuarios</a></li>
     <li class="list-group-item"><a href="/webapp/cabeceras-request">Cabeceras http</a></li>
     <li class="list-group-item"><a href="/webapp/productos.html">Listado de productos</a></li>
     <li class="list-group-item"><a href="/webapp/hora-actualizada">Hora actualizada</a></li>
@@ -11,7 +11,7 @@
     <li class="list-group-item"><a href="/webapp/despachar">Utiliza dispatch para abrir cabeceras-request (conserva url y request)</a></li>
     <li class="list-group-item"><a href="/webapp/login">Login</a></li>
     <li class="list-group-item"><a href="/webapp/logout">Logout</a></li>
-    <li class="list-group-item"><a href="/webapp/productos1.html">Listado productos con permiso</a></li>
+    <li class="list-group-item"><a href="/webapp/productos">Listado productos con permiso</a></li>
     <li class="list-group-item"><a href="/webapp/buscar-producto.html">Buscar producto</a></li>
     <li class="list-group-item"><a href="/webapp/carro/ver">Ver carro</a></li>
 </ul>

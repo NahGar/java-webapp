@@ -3,21 +3,22 @@ package org.ngarcia.webapp.controllers;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import org.ngarcia.webapp.models.Producto;
+import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.Optional;
 
-@WebServlet("/productos/eliminar")
-public class ProductoEliminarServlet extends HttpServlet {
+@WebServlet("/usuario/eliminar")
+public class UsuarioEliminarServlet extends HttpServlet {
 
    @Override
-   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+           throws ServletException, IOException {
 
       Connection conn = (Connection) req.getAttribute("conn");
-      ProductoService service = new ProductoServiceJdbcImpl(conn);
+      UsuarioService service = new UsuarioServiceImpl(conn);
 
       Long id;
       try {
@@ -27,17 +28,17 @@ public class ProductoEliminarServlet extends HttpServlet {
       }
 
       if(id > 0) {
-         Optional<Producto> opt = service.findById(id);
+         Optional<Usuario> opt = service.porId(id);
          if(opt.isPresent()) {
             service.eliminar(id);
-            resp.sendRedirect(req.getContextPath() + "/productos");
+            resp.sendRedirect(req.getContextPath() + "/usuario/listar");
          }
          else {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND,"No existe el producto id " + id);
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND,"No existe el usuario id " + id);
          }
       }
       else {
-         resp.sendError(HttpServletResponse.SC_NOT_FOUND,"Error al eliminar producto");
+         resp.sendError(HttpServletResponse.SC_NOT_FOUND,"Error al eliminar usuario");
       }
    }
 }

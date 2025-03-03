@@ -124,7 +124,7 @@ public class ProductoFormServlet extends HttpServlet {
 
          service.guardar(producto);
 
-         resp.sendRedirect(req.getContextPath() + "/productos1.html");
+         resp.sendRedirect(req.getContextPath() + "/productos");
       }
       else {
          req.setAttribute("errores", errores);

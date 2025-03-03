@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductoRepositoryJdbcImpl implements Repository<Producto> {
+public class ProductoRepositoryJdbcImpl implements ProductoRepository {
 
    private Connection conn;
 

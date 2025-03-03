@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import org.ngarcia.webapp.models.Producto;
 
-@WebServlet({"/productos1.html"})
+@WebServlet({"/productos"})
 public class ProductoServlet extends HttpServlet{
 
     @Override

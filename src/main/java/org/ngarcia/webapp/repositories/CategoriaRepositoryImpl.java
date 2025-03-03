@@ -83,11 +83,6 @@ public class CategoriaRepositoryImpl implements Repository<Categoria> {
       }
    }
 
-   @Override
-   public Categoria porSku(String sku) throws SQLException {
-      return null;
-   }
-
    private static Categoria getCategoria(ResultSet rs) throws SQLException {
       Categoria c = new Categoria();
       c.setId(rs.getLong("id"));

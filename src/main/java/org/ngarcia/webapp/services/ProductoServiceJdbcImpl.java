@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class ProductoServiceJdbcImpl implements ProductoService {
 
-   private Repository<Producto> repositoryJdbc;
+   private ProductoRepository repositoryJdbc;
    private Repository<Categoria> repositoryCategoriaJdbc;
 
    public ProductoServiceJdbcImpl(Connection conn) {

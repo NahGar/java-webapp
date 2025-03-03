@@ -96,11 +96,6 @@ public class CursoRepositoryImpl implements Repository<Curso> {
       }
    }
 
-   @Override
-   public Curso porSku(String sku) throws SQLException {
-      return null;
-   }
-
    private static Curso getCurso(ResultSet rs) throws SQLException {
       Curso c = new Curso();
       c.setId(rs.getInt("id"));

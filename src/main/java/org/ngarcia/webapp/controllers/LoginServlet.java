@@ -5,17 +5,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.Optional;
+
+import org.ngarcia.webapp.models.Usuario;
 import org.ngarcia.webapp.services.LoginService;
 import org.ngarcia.webapp.services.LoginServiceImpl;
 import org.ngarcia.webapp.services.LoginServiceSessionImpl;
+import org.ngarcia.webapp.services.UsuarioServiceImpl;
 
 @WebServlet({"/login","/login.html"})
 public class LoginServlet extends HttpServlet {
-
-    final static String USERNAME = "admin";
-    final static String PASSWORD = "12345";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -65,23 +66,37 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
+
+        UsuarioServiceImpl service = new UsuarioServiceImpl((Connection) req.getAttribute("conn"));
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        
-        if(USERNAME.equals(username) && PASSWORD.equals(password)) {
+
+        if(username == null || username.isBlank() || password == null || password.isBlank()) {
+            String error = "Debe indicar usuario y contraseña";
+            req.setAttribute("error", error);
+            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+        }
+
+        Optional<Usuario> opt = service.login(username,password);
+
+        if(opt.isPresent()) {
 
             //Con cookies
             //Cookie usernameCookie = new Cookie("username", username);
             //resp.addCookie(usernameCookie);
 
             //Con sesión
-            req.getSession().setAttribute("username",username);
-            
+            req.getSession().setAttribute("username", username);
+
             //se ejecuta el doGet de esta clase
             resp.sendRedirect(req.getContextPath() + "/login.html");
         }
         else {
-            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"No estás autorizado man");
+            String error = "Usuario o contraseña incorrecta";
+            req.setAttribute("error", error);
+            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         }
+
     }
 }
