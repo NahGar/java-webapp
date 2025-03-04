@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.filters;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,23 +16,28 @@ import java.sql.SQLException;
 @WebFilter("/*")
 public class ConexionFilter implements Filter {
 
+   @Inject
+   @Named("conn")
+   private Connection conn;
+
    @Override
    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
       //try(Connection conn = ConexionBaseDatos.getConnection()) {
-      try(Connection conn = ConexionBaseDatosDS.getConnection()) {
+      //try(Connection conn = ConexionBaseDatosDS.getConnection()) {
+      try(Connection connReq = this.conn) {
 
-         if(conn.getAutoCommit()) {
-            conn.setAutoCommit(false);
+         if(connReq.getAutoCommit()) {
+            connReq.setAutoCommit(false);
          }
 
          try {
-            servletRequest.setAttribute("conn", conn);
+            //servletRequest.setAttribute("conn", conn);
             filterChain.doFilter(servletRequest,servletResponse);
-            conn.commit();
+            connReq.commit();
          }
          catch (SQLException | ServiceJdbcException e) {
-            conn.rollback();
+            connReq.rollback();
             if (e.getClass().getName() == "SQLException")  {
                ((HttpServletResponse) servletResponse).sendError
                        (HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ((SQLException)e).getSQLState() + " " + e.getMessage());
@@ -45,7 +52,8 @@ public class ConexionFilter implements Filter {
 
       }
       //catch (SQLException e) {
-      catch (SQLException | NamingException e) {
+      //catch (SQLException | NamingException e) {
+      catch (SQLException e) {
          e.printStackTrace();
       }
    }

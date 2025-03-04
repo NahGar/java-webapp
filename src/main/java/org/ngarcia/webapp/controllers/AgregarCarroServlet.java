@@ -1,5 +1,6 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -11,6 +12,9 @@ import org.ngarcia.webapp.services.*;
 
 @WebServlet("/carro/agregar")
 public class AgregarCarroServlet extends HttpServlet {
+
+    @Inject
+    private Carro carro;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -33,9 +37,10 @@ public class AgregarCarroServlet extends HttpServlet {
                 carro = (Carro) req.getSession().getAttribute("carro");
             }
             */
-            Carro carro = (Carro) req.getSession().getAttribute("carro");
+            //se quita por inyección dependencia
+            //Carro carro = (Carro) req.getSession().getAttribute("carro");
             carro.addItem(item);
-            req.getSession().setAttribute("carro", carro);
+            //req.getSession().setAttribute("carro", carro);
         }
         resp.sendRedirect(req.getContextPath()+"/carro/ver");
     }

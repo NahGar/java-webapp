@@ -14,7 +14,10 @@
 </style>
         
 <c:choose>
+    <%--
     <c:when test="${sessionScope.carro == null || sessionScope.carro.items.isEmpty()}">
+    --%>
+    <c:when test="${carro.items.isEmpty()}">
         <div class="alert alert-warning">No hay productos en el carro de compras</div>
     </c:when>
     <c:otherwise>
@@ -32,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${sessionScope.carro.items}" var="item" >
+                    <c:forEach items="${carro.items}" var="item" >
                         <tr>
                             <td>${item.producto.id}
                                 <input type="hidden" name="id_producto" value="${item.producto.id}"/></td>

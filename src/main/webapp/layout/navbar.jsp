@@ -15,7 +15,7 @@
           <a class="nav-link" href="${pageContext.request.contextPath}/productos">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="${pageContext.request.contextPath}/carro/ver">Carro de compras (${sessionScope.carro.items.size()})</a>
+          <a class="nav-link" href="${pageContext.request.contextPath}/carro/ver">Carro de compras (${carro.items.size()})</a>
         </li>
         <c:if test="${not empty sessionScope.username}">
             <li class="nav-item">
