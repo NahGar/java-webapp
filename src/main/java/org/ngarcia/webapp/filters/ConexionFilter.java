@@ -32,6 +32,7 @@ public class ConexionFilter implements Filter {
          }
 
          try {
+            //la conexion se pasa mediante injección de dependencia
             //servletRequest.setAttribute("conn", conn);
             filterChain.doFilter(servletRequest,servletResponse);
             connReq.commit();

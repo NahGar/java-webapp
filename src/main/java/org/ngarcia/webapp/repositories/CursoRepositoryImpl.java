@@ -1,18 +1,24 @@
 package org.ngarcia.webapp.repositories;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.ngarcia.webapp.models.Curso;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class CursoRepositoryImpl implements Repository<Curso> {
 
+   @Inject
+   @Named("conn")
    private Connection conn;
 
-   public CursoRepositoryImpl(Connection conn) {
-      this.conn = conn;
-   }
+   //public CursoRepositoryImpl(Connection conn) {
+   //   this.conn = conn;
+   //}
 
    @Override
    public List<Curso> listar() throws SQLException {

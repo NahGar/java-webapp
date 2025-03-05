@@ -1,20 +1,24 @@
 package org.ngarcia.webapp.repositories;
 
-import org.ngarcia.webapp.models.Categoria;
-import org.ngarcia.webapp.models.Producto;
-import org.ngarcia.webapp.models.Usuario;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 
+   @Inject
+   @Named("conn")
    private Connection conn;
 
-   public UsuarioRepositoryImpl(Connection conn) {
-      this.conn = conn;
-   }
+   //public UsuarioRepositoryImpl(Connection conn) {
+   //   this.conn = conn;
+   //}
 
    @Override
    public Usuario porUsername(String username) throws SQLException {

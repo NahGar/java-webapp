@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.repositories.*;
 
@@ -7,12 +9,18 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 
+@ApplicationScoped
 public class UsuarioServiceImpl implements UsuarioService {
 
    private UsuarioRepositoryImpl repository;
 
-   public UsuarioServiceImpl(Connection conn) {
-      this.repository = new UsuarioRepositoryImpl(conn);
+   //public UsuarioServiceImpl(Connection conn) {
+   //   this.repository = new UsuarioRepositoryImpl(conn);
+   //}
+
+   @Inject
+   public UsuarioServiceImpl(UsuarioRepositoryImpl usuarioRepository) {
+      this.repository = usuarioRepository;
    }
 
    @Override

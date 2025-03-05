@@ -1,16 +1,25 @@
 package org.ngarcia.webapp.repositories;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class CategoriaRepositoryImpl implements Repository<Categoria> {
 
    private Connection conn;
 
-   public CategoriaRepositoryImpl(Connection conn) {
+   //public CategoriaRepositoryImpl(Connection conn) {
+   //   this.conn = conn;
+   //}
+
+   @Inject
+   public CategoriaRepositoryImpl(@Named("conn") Connection conn) {
       this.conn = conn;
    }
 

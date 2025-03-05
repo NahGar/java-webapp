@@ -1,10 +1,14 @@
 package org.ngarcia.webapp.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Optional;
 
+@ApplicationScoped
+@Named("loginServiceCookie")
 public class LoginServiceImpl implements LoginService {
 
     @Override

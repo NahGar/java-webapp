@@ -1,11 +1,11 @@
 package org.ngarcia.webapp.controllers;
 
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.Optional;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
@@ -16,14 +16,20 @@ public class AgregarCarroServlet extends HttpServlet {
     @Inject
     private Carro carro;
 
+    @Inject
+    @Named("productoDefault")
+    private ProductoService service;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
-        Long id = Long.parseLong(req.getParameter("id"));
         //ProductoService service = new ProductoServiceImpl();
-        Connection conn = (Connection)  req.getAttribute("conn");
-        ProductoService service = new ProductoServiceJdbcImpl(conn);
+        //Connection conn = (Connection)  req.getAttribute("conn");
+        //ProductoService service = new ProductoServiceJdbcImpl(conn);
+
+        Long id = Long.parseLong(req.getParameter("id"));
+
         Optional<Producto> producto = service.findById(id);
         if(producto.isPresent()) {
             ItemCarro item = new ItemCarro(1, producto.get());

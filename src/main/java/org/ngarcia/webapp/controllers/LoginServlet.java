@@ -1,22 +1,25 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.Arrays;
 import java.util.Optional;
 
 import org.ngarcia.webapp.models.Usuario;
-import org.ngarcia.webapp.services.LoginService;
-import org.ngarcia.webapp.services.LoginServiceImpl;
-import org.ngarcia.webapp.services.LoginServiceSessionImpl;
-import org.ngarcia.webapp.services.UsuarioServiceImpl;
+import org.ngarcia.webapp.services.*;
 
 @WebServlet({"/login","/login.html"})
 public class LoginServlet extends HttpServlet {
+
+    @Inject
+    private UsuarioService usuarioService;
+
+    @Inject
+    @Named("loginDefault")
+    private LoginService loginService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
@@ -34,8 +37,8 @@ public class LoginServlet extends HttpServlet {
         //Optional<String> usernameOptional = service.getUsername(req);
 
         //Con sesion
-        LoginService service = new LoginServiceSessionImpl();
-        Optional<String> usernameOptional = service.getUsername(req);
+        //LoginService service = new LoginServiceSessionImpl();
+        Optional<String> usernameOptional = loginService.getUsername(req);
         
         if(usernameOptional.isPresent()) {
             /*
@@ -67,7 +70,8 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
 
-        UsuarioServiceImpl service = new UsuarioServiceImpl((Connection) req.getAttribute("conn"));
+        //UsuarioServiceImpl service = new UsuarioServiceImpl((Connection) req.getAttribute("conn"));
+        //UsuarioService service = new UsuarioServiceImpl(this.conn);
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
@@ -78,7 +82,7 @@ public class LoginServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
         }
 
-        Optional<Usuario> opt = service.login(username,password);
+        Optional<Usuario> opt = usuarioService.login(username,password);
 
         if(opt.isPresent()) {
 

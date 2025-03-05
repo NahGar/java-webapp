@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.ngarcia.webapp.services.ProductoService;
 import org.ngarcia.webapp.services.ProductoServiceImpl;
 import jakarta.servlet.ServletException;
@@ -14,11 +16,15 @@ import org.ngarcia.webapp.models.Producto;
 @WebServlet("/buscar-producto")
 public class BuscarProductoServlet extends HttpServlet {
 
+    @Inject
+    @Named("productoDefault")
+    private ProductoService service;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
         String nombreFiltro = req.getParameter("producto");
-        ProductoService service = new ProductoServiceImpl();
+        //ProductoService service = new ProductoServiceImpl();
         List<Producto> productos = service.findAllByName(nombreFiltro);
         
         Optional<Producto> encontrado = service.findOneByName(nombreFiltro);

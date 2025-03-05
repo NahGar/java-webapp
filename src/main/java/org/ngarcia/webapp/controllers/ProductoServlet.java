@@ -1,12 +1,12 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.ngarcia.webapp.services.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 import org.ngarcia.webapp.models.Producto;
@@ -14,12 +14,19 @@ import org.ngarcia.webapp.models.Producto;
 @WebServlet({"/productos"})
 public class ProductoServlet extends HttpServlet{
 
+    @Inject
+    @Named("productoDefault")
+    private ProductoService serviceProd;
+
+    @Inject
+    @Named("loginDefault")
+    private LoginService loginService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //ProductoService serviceProd = new ProductoServiceImpl();
-        Connection conn = (Connection)  req.getAttribute("conn");
-        ProductoService serviceProd = new ProductoServiceJdbcImpl(conn);
+        //Connection conn = (Connection)  req.getAttribute("conn");
+        //ProductoService serviceProd = new ProductoServiceJdbcImpl(conn);
         List<Producto> productos = serviceProd.listar();
 
         //Con cookie
@@ -27,8 +34,8 @@ public class ProductoServlet extends HttpServlet{
         //Optional<String> cookieOptional = serviceLogin.getUsername(req);
 
         //Con sesion
-        LoginService serviceLogin = new LoginServiceSessionImpl();
-        Optional<String> usernameOptional = serviceLogin.getUsername(req);
+        //LoginService loginService = new LoginServiceSessionImpl();
+        Optional<String> usernameOptional = loginService.getUsername(req);
 
         //String mensajeRequest = (String) req.getAttribute("mensaje");
         //String mensajeApp = (String) getServletContext().getAttribute("mensaje");

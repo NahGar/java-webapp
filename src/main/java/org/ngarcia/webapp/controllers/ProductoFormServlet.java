@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -7,7 +9,6 @@ import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.format.*;
 import java.util.*;
@@ -15,10 +16,15 @@ import java.util.*;
 @WebServlet("/productos/form")
 public class ProductoFormServlet extends HttpServlet {
 
+   @Inject
+   @Named("productoDefault")
+   private ProductoService service;
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Connection conn = (Connection) req.getAttribute("conn");
-      ProductoService service = new ProductoServiceJdbcImpl(conn);
+
+      //Connection conn = (Connection) req.getAttribute("conn");
+      //ProductoService service = new ProductoServiceJdbcImpl(conn);
 
       //Al editar producto viene Id en query
       long id;
@@ -48,8 +54,9 @@ public class ProductoFormServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Connection conn = (Connection) req.getAttribute("conn");
-      ProductoService service = new ProductoServiceJdbcImpl(conn);
+
+      //Connection conn = (Connection) req.getAttribute("conn");
+      //ProductoService service = new ProductoServiceJdbcImpl(conn);
 
       String nombre = req.getParameter("nombre");
       Integer precio;

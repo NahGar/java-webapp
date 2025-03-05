@@ -65,7 +65,7 @@
     </c:otherwise>
 </c:choose>
 <div class="my-2">
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/productos1.html">Seguir comprando</a>
+    <a class="btn btn-success" href="${pageContext.request.contextPath}/productos">Seguir comprando</a>
     <a class="btn btn-secondary" href="${pageContext.request.contextPath}/index.jsp">Volver</a></p>
 </div>
         

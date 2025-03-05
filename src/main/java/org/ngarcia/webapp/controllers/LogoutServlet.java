@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -10,6 +12,11 @@ import org.ngarcia.webapp.services.*;
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 
+    @Inject
+    //@Named("loginSeviceCookie")
+    @Named("loginDefault")
+    private LoginService auth;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
@@ -19,7 +26,7 @@ public class LogoutServlet extends HttpServlet {
         //Optional<String> username = auth.getUsername(req);
 
         //Con sesion
-        LoginService auth = new LoginServiceSessionImpl();
+        //LoginService auth = new LoginServiceSessionImpl();
         Optional<String> username = auth.getUsername(req);
 
         if( username.isPresent() ) {
@@ -35,5 +42,4 @@ public class LogoutServlet extends HttpServlet {
         }
         resp.sendRedirect(req.getContextPath() + "/login");
     }
-    
 }

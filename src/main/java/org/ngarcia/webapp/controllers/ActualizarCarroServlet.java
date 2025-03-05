@@ -1,6 +1,7 @@
 package org.ngarcia.webapp.controllers;
 
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -16,6 +17,10 @@ public class ActualizarCarroServlet extends HttpServlet {
     @Inject
     private Carro carro;
 
+    @Inject
+    @Named("productoDefault")
+    private ProductoService service;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
@@ -23,8 +28,8 @@ public class ActualizarCarroServlet extends HttpServlet {
         //if(req.getSession().getAttribute("carro") != null) {
         //se quita por inyección dependencia
         //Carro carro = (Carro) req.getSession().getAttribute("carro");
-        Connection conn = (Connection)  req.getAttribute("conn");
-        ProductoService service = new ProductoServiceJdbcImpl(conn);
+        //Connection conn = (Connection)  req.getAttribute("conn");
+        //ProductoService service = new ProductoServiceJdbcImpl(conn);
 
         String[] idProductos = req.getParameterValues("id_producto");
         String[] cantidades = req.getParameterValues("cant_1");

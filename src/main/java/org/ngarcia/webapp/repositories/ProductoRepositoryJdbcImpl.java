@@ -1,18 +1,23 @@
 package org.ngarcia.webapp.repositories;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.*;
 import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class ProductoRepositoryJdbcImpl implements ProductoRepository {
 
+   @Inject
+   @Named("conn")
    private Connection conn;
 
-   public ProductoRepositoryJdbcImpl(Connection conn) {
-      this.conn = conn;
-   }
+   //public ProductoRepositoryJdbcImpl(Connection conn) {
+   //   this.conn = conn;
+   //}
 
    @Override
    public List listar() throws SQLException {
@@ -89,8 +94,21 @@ public class ProductoRepositoryJdbcImpl implements ProductoRepository {
    }
 
    @Override
-   public List<Producto> porNombre(String nombre) throws SQLException {
-      return List.of();
+   public List porNombre(String nombre) throws SQLException {
+      List<Producto> productos = new ArrayList<>();
+      String sql = "SELECT p.*, c.nombre as categoria from productos as p " +
+              "inner join categorias as c ON (p.categoria_id=c.id) " +
+              "WHERE p.nombre like ? ORDER BY p.id ASC";
+
+      try(PreparedStatement stmt = conn.prepareStatement(sql) ) {
+         stmt.setString(1,'%'+nombre+'%');
+         ResultSet rs = stmt.executeQuery();
+         while (rs.next()) {
+            Producto p = getProducto(rs);
+            productos.add(p);
+         }
+      }
+      return productos;
    }
 
    @Override

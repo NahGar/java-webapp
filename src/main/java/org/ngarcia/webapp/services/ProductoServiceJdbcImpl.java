@@ -1,24 +1,29 @@
 package org.ngarcia.webapp.services;
 
-import org.ngarcia.webapp.models.Categoria;
-import org.ngarcia.webapp.models.Producto;
-import org.ngarcia.webapp.repositories.CategoriaRepositoryImpl;
-import org.ngarcia.webapp.repositories.ProductoRepositoryJdbcImpl;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.repositories.*;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
+@Named("productoDefault")
 public class ProductoServiceJdbcImpl implements ProductoService {
 
+   @Inject
    private ProductoRepository repositoryJdbc;
+
+   @Inject
    private Repository<Categoria> repositoryCategoriaJdbc;
 
-   public ProductoServiceJdbcImpl(Connection conn) {
-      this.repositoryJdbc = new ProductoRepositoryJdbcImpl(conn);
-      this.repositoryCategoriaJdbc = new CategoriaRepositoryImpl(conn);
-   }
+   //public ProductoServiceJdbcImpl(Connection conn) {
+   //   this.repositoryJdbc = new ProductoRepositoryJdbcImpl(conn);
+   //   this.repositoryCategoriaJdbc = new CategoriaRepositoryImpl(conn);
+   //}
 
    @Override
    public List<Producto> listar() {
@@ -33,7 +38,13 @@ public class ProductoServiceJdbcImpl implements ProductoService {
 
    @Override
    public Optional<Producto> findOneByName(String name) {
-      return Optional.empty();
+      try {
+         return repositoryJdbc.porNombre(name).stream().findFirst();
+      }
+      catch (SQLException e) {
+         //se maneja en ConexionFilter
+         throw new ServiceJdbcException(e.getMessage(),e.getCause());
+      }
    }
 
    @Override

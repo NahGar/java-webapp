@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.services;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.ngarcia.webapp.models.Curso;
 import org.ngarcia.webapp.repositories.*;
 
@@ -8,13 +10,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@ApplicationScoped
 public class CursoServiceImpl implements CursoService {
 
+   @Inject
    private CursoRepositoryImpl repositoryJdbc;
 
-   public CursoServiceImpl(Connection conn) {
-      this.repositoryJdbc = new CursoRepositoryImpl(conn);
-   }
+   //public CursoServiceImpl(Connection conn) {
+   //   this.repositoryJdbc = new CursoRepositoryImpl(conn);
+   //}
 
    @Override
    public List<Curso> listar() {

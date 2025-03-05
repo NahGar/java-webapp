@@ -1,5 +1,6 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -15,10 +16,14 @@ import java.util.Optional;
 @WebServlet("/cursos/form")
 public class CursoFormServlet extends HttpServlet {
 
+   @Inject
+   private CursoService service;
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Connection conn = (Connection) req.getAttribute("conn");
-      CursoService service = new CursoServiceImpl(conn);
+
+      //Connection conn = (Connection) req.getAttribute("conn");
+      //CursoService service = new CursoServiceImpl(conn);
 
       //Al editar producto viene Id en query
       Integer id;
@@ -45,8 +50,9 @@ public class CursoFormServlet extends HttpServlet {
 
    @Override
    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Connection conn = (Connection) req.getAttribute("conn");
-      CursoService service = new CursoServiceImpl(conn);
+
+      //Connection conn = (Connection) req.getAttribute("conn");
+      //CursoService service = new CursoServiceImpl(conn);
 
       String nombre = req.getParameter("nombre");
       String descripcion = req.getParameter("descripcion");

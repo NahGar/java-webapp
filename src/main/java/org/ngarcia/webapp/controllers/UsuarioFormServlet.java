@@ -1,5 +1,6 @@
 package org.ngarcia.webapp.controllers;
 
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -15,10 +16,13 @@ import java.util.Optional;
 @WebServlet("/usuario/form")
 public class UsuarioFormServlet extends HttpServlet {
 
+   @Inject
+   private UsuarioService service;
+
    @Override
    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-      Connection conn = (Connection) req.getAttribute("conn");
-      UsuarioService service = new UsuarioServiceImpl(conn);
+      //Connection conn = (Connection) req.getAttribute("conn");
+      //UsuarioService service = new UsuarioServiceImpl(conn);
 
       //Al editar producto viene Id en query
       long id;
@@ -47,8 +51,8 @@ public class UsuarioFormServlet extends HttpServlet {
    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
            throws ServletException, IOException {
 
-      Connection conn = (Connection) req.getAttribute("conn");
-      UsuarioService service = new UsuarioServiceImpl(conn);
+      //Connection conn = (Connection) req.getAttribute("conn");
+      //UsuarioService service = new UsuarioServiceImpl(conn);
 
       String username = req.getParameter("username");
       String password = req.getParameter("password");
