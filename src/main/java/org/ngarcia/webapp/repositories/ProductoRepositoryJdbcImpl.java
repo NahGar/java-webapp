@@ -2,6 +2,7 @@ package org.ngarcia.webapp.repositories;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.*;
+import org.ngarcia.webapp.configs.MysqlConn;
 import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
@@ -12,7 +13,8 @@ import java.util.List;
 public class ProductoRepositoryJdbcImpl implements ProductoRepository {
 
    @Inject
-   @Named("conn")
+   //@Named("conn")
+   @MysqlConn
    private Connection conn;
 
    //public ProductoRepositoryJdbcImpl(Connection conn) {

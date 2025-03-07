@@ -2,7 +2,7 @@ package org.ngarcia.webapp.repositories;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import org.ngarcia.webapp.configs.MysqlConn;
 import org.ngarcia.webapp.models.Curso;
 
 import java.sql.*;
@@ -13,7 +13,8 @@ import java.util.List;
 public class CursoRepositoryImpl implements Repository<Curso> {
 
    @Inject
-   @Named("conn")
+   //@Named("conn")
+   @MysqlConn
    private Connection conn;
 
    //public CursoRepositoryImpl(Connection conn) {

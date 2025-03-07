@@ -2,7 +2,7 @@ package org.ngarcia.webapp.services;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.repositories.*;
 
@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-@Named("productoDefault")
+//para identificar entre esta clase y ProductoServiceImpl (ambos utilizan la misma interface)
+//se puede hacer mediante Named o utilizando la clase ProductoServicePrincial (annotation)
+//@Named("productoDefault")
+@ProductoServicePrincipal
 public class ProductoServiceJdbcImpl implements ProductoService {
 
    @Inject

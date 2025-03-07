@@ -2,7 +2,7 @@ package org.ngarcia.webapp.repositories;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
+import org.ngarcia.webapp.configs.MysqlConn;
 import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
@@ -19,7 +19,8 @@ public class CategoriaRepositoryImpl implements Repository<Categoria> {
    //}
 
    @Inject
-   public CategoriaRepositoryImpl(@Named("conn") Connection conn) {
+   //public CategoriaRepositoryImpl(@Named("conn") Connection conn) {
+   public CategoriaRepositoryImpl(@MysqlConn Connection conn) {
       this.conn = conn;
    }
 

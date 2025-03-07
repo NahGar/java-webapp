@@ -5,6 +5,7 @@ import jakarta.inject.Named;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
@@ -17,7 +18,8 @@ import java.util.*;
 public class ProductoFormServlet extends HttpServlet {
 
    @Inject
-   @Named("productoDefault")
+   //@Named("productoDefault")
+   @ProductoServicePrincipal
    private ProductoService service;
 
    @Override

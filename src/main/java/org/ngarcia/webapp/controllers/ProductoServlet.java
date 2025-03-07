@@ -2,6 +2,7 @@ package org.ngarcia.webapp.controllers;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.services.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,7 +16,10 @@ import org.ngarcia.webapp.models.Producto;
 public class ProductoServlet extends HttpServlet{
 
     @Inject
-    @Named("productoDefault")
+    //para identificar entre esta clase y ProductoServiceImpl (ambos utilizan la misma interface)
+    //se puede hacer mediante Named o utilizando la clase ProductoServicePrincial (annotation)
+    //@Named("productoDefault")
+    @ProductoServicePrincipal
     private ProductoService serviceProd;
 
     @Inject

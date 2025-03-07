@@ -8,6 +8,8 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.Optional;
+
+import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
@@ -18,7 +20,8 @@ public class ActualizarCarroServlet extends HttpServlet {
     private Carro carro;
 
     @Inject
-    @Named("productoDefault")
+    //@Named("productoDefault")
+    @ProductoServicePrincipal
     private ProductoService service;
 
     @Override

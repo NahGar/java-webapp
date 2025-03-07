@@ -7,6 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.Optional;
+
+import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.models.*;
 import org.ngarcia.webapp.services.*;
 
@@ -17,7 +19,8 @@ public class AgregarCarroServlet extends HttpServlet {
     private Carro carro;
 
     @Inject
-    @Named("productoDefault")
+    //@Named("productoDefault")
+    @ProductoServicePrincipal
     private ProductoService service;
 
     @Override

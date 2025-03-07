@@ -2,6 +2,7 @@ package org.ngarcia.webapp.controllers;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.services.ProductoService;
 import org.ngarcia.webapp.services.ProductoServiceImpl;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,8 @@ import org.ngarcia.webapp.models.Producto;
 public class BuscarProductoServlet extends HttpServlet {
 
     @Inject
-    @Named("productoDefault")
+    //@Named("productoDefault")
+    @ProductoServicePrincipal
     private ProductoService service;
 
     @Override

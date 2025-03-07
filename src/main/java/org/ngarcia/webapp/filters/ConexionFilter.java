@@ -1,23 +1,21 @@
 package org.ngarcia.webapp.filters;
 
 import jakarta.inject.Inject;
-import jakarta.inject.Named;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletResponse;
+import org.ngarcia.webapp.configs.MysqlConn;
 import org.ngarcia.webapp.services.ServiceJdbcException;
-import org.ngarcia.webapp.utils.*;
 
-import javax.naming.NamingException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
 @WebFilter("/*")
 public class ConexionFilter implements Filter {
 
    @Inject
-   @Named("conn")
+   //@Named("conn")
+   @MysqlConn
    private Connection conn;
 
    @Override
