@@ -1,7 +1,6 @@
 package org.ngarcia.webapp.models;
 
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Named;
+import org.ngarcia.webapp.configs.CarroCompra;
 
 import java.io.Serializable;
 import java.util.*;
@@ -9,9 +8,11 @@ import java.util.*;
 //para injección de dependencia
 //requiere un constructor que no reciba parametros
 //requiere crear WEB-INF\beans.xml
-@SessionScoped
-//@Named("carro")
-@Named
+//@SessionScoped
+////@Named("carro")
+//@Named
+//Utilizando stereotype
+@CarroCompra
 //public class Carro {
 public class Carro implements Serializable {
 

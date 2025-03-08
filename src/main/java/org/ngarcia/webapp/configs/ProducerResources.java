@@ -1,14 +1,14 @@
 package org.ngarcia.webapp.configs;
 
 import jakarta.annotation.Resource;
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Named;
+import jakarta.enterprise.context.*;
+import jakarta.enterprise.inject.*;
 import java.sql.*;
 
 import javax.naming.*;
 import javax.sql.DataSource;
 
+@ApplicationScoped
 public class ProducerResources {
 
    @Resource(name="jdbc/mysqlDB")
@@ -23,5 +23,10 @@ public class ProducerResources {
       //Context envContext = (Context) initContext.lookup("java:/comp/env");
       //DataSource ds = (DataSource) envContext.lookup("jdbc/mysqlDB");
       return ds.getConnection();
+   }
+
+   //en lugar del autoclose en ConexionFilter
+   public void close(@Disposes @MysqlConn Connection conn) throws SQLException {
+      conn.close();
    }
 }

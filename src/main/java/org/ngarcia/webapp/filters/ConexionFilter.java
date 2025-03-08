@@ -23,7 +23,10 @@ public class ConexionFilter implements Filter {
 
       //try(Connection conn = ConexionBaseDatos.getConnection()) {
       //try(Connection conn = ConexionBaseDatosDS.getConnection()) {
-      try(Connection connReq = this.conn) {
+      //try (Connection connReq = this.conn) {
+      try {
+
+         Connection connReq = this.conn;
 
          if(connReq.getAutoCommit()) {
             connReq.setAutoCommit(false);

@@ -1,15 +1,15 @@
 package org.ngarcia.webapp.repositories;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.*;
-import org.ngarcia.webapp.configs.MysqlConn;
+import org.ngarcia.webapp.configs.*;
 import org.ngarcia.webapp.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
+//@ApplicationScoped
+@Repositorio
 public class ProductoRepositoryJdbcImpl implements ProductoRepository {
 
    @Inject
