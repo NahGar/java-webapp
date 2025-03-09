@@ -30,7 +30,8 @@ public class TiempoTranscurridoListener implements ServletRequestListener {
       fin = Instant.now();
       long tiempoTranscurrido = Duration.between(inicio, fin).toMillis();
 
-      logger.info("[[" + recurso + "]] tiempo transcurrido: " + tiempoTranscurrido + " ms");
+      //para que no joda
+      //logger.info("[[" + recurso + "]] tiempo transcurrido: " + tiempoTranscurrido + " ms");
    }
 
 }

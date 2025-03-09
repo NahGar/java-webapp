@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@ApplicationScoped
-@Repositorio
-public class CategoriaRepositoryImpl implements Repository<Categoria> {
+@Repository
+public class CategoriaRepositoryImpl implements CrudRepository<Categoria> {
 
    private Connection conn;
 

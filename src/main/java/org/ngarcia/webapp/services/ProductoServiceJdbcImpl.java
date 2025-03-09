@@ -21,7 +21,7 @@ public class ProductoServiceJdbcImpl implements ProductoService {
    private ProductoRepository repositoryJdbc;
 
    @Inject
-   private Repository<Categoria> repositoryCategoriaJdbc;
+   private CrudRepository<Categoria> repositoryCategoriaJdbc;
 
    //public ProductoServiceJdbcImpl(Connection conn) {
    //   this.repositoryJdbc = new ProductoRepositoryJdbcImpl(conn);

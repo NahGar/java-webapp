@@ -1,5 +1,7 @@
 package org.ngarcia.webapp.repositories;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.inject.*;
 import org.ngarcia.webapp.configs.*;
 import org.ngarcia.webapp.models.*;
@@ -7,9 +9,10 @@ import org.ngarcia.webapp.models.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 //@ApplicationScoped
-@Repositorio
+@Repository
 public class ProductoRepositoryJdbcImpl implements ProductoRepository {
 
    @Inject
@@ -17,9 +20,22 @@ public class ProductoRepositoryJdbcImpl implements ProductoRepository {
    @MysqlConn
    private Connection conn;
 
+   @Inject
+   private Logger log;
+
    //public ProductoRepositoryJdbcImpl(Connection conn) {
    //   this.conn = conn;
    //}
+
+   @PostConstruct
+   public void inicializar() {
+      log.info("Inicializando el beans");
+   }
+
+   @PreDestroy
+   public void destriur() {
+      log.info("Destruyendo el beans");
+   }
 
    @Override
    public List listar() throws SQLException {

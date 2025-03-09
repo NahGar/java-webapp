@@ -1,9 +1,13 @@
 package org.ngarcia.webapp.models;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
 import org.ngarcia.webapp.configs.CarroCompra;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.logging.Logger;
 
 //para injección de dependencia
 //requiere un constructor que no reciba parametros
@@ -18,8 +22,19 @@ public class Carro implements Serializable {
 
     private List<ItemCarro> items;
 
-    public Carro() {
+    @Inject
+    private transient Logger log;
+
+    //public Carro() { }
+    @PostConstruct
+    public void inicializar() {
         items = new ArrayList<>();
+        log.info("Inicializando carro de compras");
+    }
+
+    @PreDestroy
+    public void destruir() {
+        log.info("Destruyendo carro de compras");
     }
 
     public void addItem(ItemCarro item) {

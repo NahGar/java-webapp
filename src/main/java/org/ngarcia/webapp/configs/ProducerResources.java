@@ -3,7 +3,10 @@ package org.ngarcia.webapp.configs;
 import jakarta.annotation.Resource;
 import jakarta.enterprise.context.*;
 import jakarta.enterprise.inject.*;
+import jakarta.enterprise.inject.spi.InjectionPoint;
+
 import java.sql.*;
+import java.util.logging.Logger;
 
 import javax.naming.*;
 import javax.sql.DataSource;
@@ -28,5 +31,10 @@ public class ProducerResources {
    //en lugar del autoclose en ConexionFilter
    public void close(@Disposes @MysqlConn Connection conn) throws SQLException {
       conn.close();
+   }
+
+   @Produces
+   private Logger beanLogger(InjectionPoint injectionPoint) {
+      return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
    }
 }

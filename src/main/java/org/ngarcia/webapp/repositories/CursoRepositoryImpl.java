@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@ApplicationScoped
-@Repositorio
-public class CursoRepositoryImpl implements Repository<Curso> {
+@Repository
+public class CursoRepositoryImpl implements CrudRepository<Curso> {
 
    @Inject
    //@Named("conn")
