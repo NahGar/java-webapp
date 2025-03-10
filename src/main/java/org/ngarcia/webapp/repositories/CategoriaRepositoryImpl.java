@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@ApplicationScoped
-@Repository
+@RepositoryCDI
 public class CategoriaRepositoryImpl implements CrudRepository<Categoria> {
 
    private Connection conn;

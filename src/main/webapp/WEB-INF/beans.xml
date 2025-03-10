@@ -4,4 +4,10 @@
        version="3.0"
        bean-discovery-mode="annotated">
 
+   <interceptors>
+      <class>
+         org.ngarcia.webapp.interceptors.LoggingInterceptor
+      </class>
+   </interceptors>
+      
 </beans>

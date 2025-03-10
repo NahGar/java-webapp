@@ -8,8 +8,10 @@ import org.ngarcia.webapp.repositories.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
+import org.ngarcia.webapp.configs.Service;
 
-@ApplicationScoped
+//@ApplicationScoped
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
    private UsuarioRepositoryImpl repository;

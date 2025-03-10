@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 //@ApplicationScoped
-@Repository
+@RepositoryCDI
 public class ProductoRepositoryJdbcImpl implements ProductoRepository {
 
    @Inject

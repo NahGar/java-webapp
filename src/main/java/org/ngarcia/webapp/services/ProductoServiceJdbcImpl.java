@@ -9,11 +9,14 @@ import org.ngarcia.webapp.repositories.*;
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
+import org.ngarcia.webapp.configs.Service;
+import org.ngarcia.webapp.interceptors.Logging;
 
-@ApplicationScoped
+//@ApplicationScoped
 //para identificar entre esta clase y ProductoServiceImpl (ambos utilizan la misma interface)
 //se puede hacer mediante Named o utilizando la clase ProductoServicePrincial (annotation)
 //@Named("productoDefault")
+@Service
 @ProductoServicePrincipal
 public class ProductoServiceJdbcImpl implements ProductoService {
 
@@ -29,6 +32,7 @@ public class ProductoServiceJdbcImpl implements ProductoService {
    //}
 
    @Override
+   @Logging
    public List<Producto> listar() {
       try {
          return repositoryJdbc.listar();
