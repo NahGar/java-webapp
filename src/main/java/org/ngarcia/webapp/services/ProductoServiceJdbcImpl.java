@@ -1,6 +1,5 @@
 package org.ngarcia.webapp.services;
 
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.ngarcia.webapp.configs.ProductoServicePrincipal;
 import org.ngarcia.webapp.models.*;

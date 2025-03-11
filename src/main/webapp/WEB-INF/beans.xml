@@ -8,6 +8,9 @@
       <class>
          org.ngarcia.webapp.interceptors.LoggingInterceptor
       </class>
+      <class>
+         org.ngarcia.webapp.interceptors.TransactionalInterceptor
+      </class>
    </interceptors>
       
 </beans>

@@ -4,8 +4,9 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Stereotype;
 import jakarta.inject.Named;
 import java.lang.annotation.*;
-import org.ngarcia.webapp.interceptors.Logging;
+import org.ngarcia.webapp.interceptors.*;
 
+@TransactionalJdbc
 @Logging
 @ApplicationScoped
 @Stereotype
