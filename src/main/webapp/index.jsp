@@ -18,10 +18,11 @@
 
 <ul class="list-group mt-3">
     <li class="list-group-item active">Tareas</li>
-    <li class="list-group-item"><a href="/webapp/tarea-cambia-color.jsp">Tarea cambia color</a></li>
-    <li class="list-group-item"><a href="/webapp/tarea-nombre.jsp">Tarea nombre en sesión</a></li>
-    <li class="list-group-item"><a href="/webapp/curso/listar">Tarea listar cursos</a></li>
-    <li class="list-group-item"><a href="/webapp/buscar-curso.html">Tarea buscar curso</a></li>
+    <li class="list-group-item"><a href="/webapp/tarea-cambia-color.jsp">Cambia color</a></li>
+    <li class="list-group-item"><a href="/webapp/tarea-nombre.jsp">Nombre en sesión</a></li>
+    <li class="list-group-item"><a href="/webapp/curso/listar">Listar cursos</a></li>
+    <li class="list-group-item"><a href="/webapp/buscar-curso.html">Buscar curso</a></li>
+    <li class="list-group-item"><a href="/webapp/factura/ver">Factura</a></li>
 </ul>
 
 <jsp:include page="layout/footer.jsp"/>
